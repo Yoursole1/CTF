@@ -1,0 +1,26 @@
+name: CapturetheFlag
+version: ${project.version}
+main: me.yoursole.ctf.CTF
+api-version: 1.17
+commands:
+  start:
+    description: Start Game
+    usage: /<command>
+  stop:
+    description: Stop Game
+    usage: /<command>
+  scores:
+    description: Get scores
+    usage: /<command>
+  timer:
+    description: Start a timer
+    usage: /<command> <clear | ms>
+  togglechat:
+    description: Toggles non operators from chatting
+    usage: /<command>
+  customitem:
+    description: Gives a custom item
+    usage: /<command> <itemID>
+  top:
+    description: Sends you to the highest block above you
+    usage: /<command>
