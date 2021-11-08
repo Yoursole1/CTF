@@ -70,10 +70,11 @@ public class ItLocationManager implements Listener {
             if(player.getLocation().getDirection().getX()<0){
                 angleFacing*=-1;
             }
-
+            /*
             if(angleFacing<-90&&angleBetween<-90){
 
             }
+            */
             double combined = angleFacing-angleBetween;
             if(Math.abs(combined)>180){
                 if(combined>0){
