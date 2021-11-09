@@ -3,8 +3,7 @@ package me.yoursole.ctf.Commands;
 import me.yoursole.ctf.DataFiles.GameData;
 import me.yoursole.ctf.DataFiles.GameLoop;
 import me.yoursole.ctf.DataFiles.Items.Flag;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
+import java.io.File;
 import java.util.Map;
 import java.util.UUID;
 
@@ -52,4 +52,5 @@ public class Start implements CommandExecutor {
         return true;
 
     }
+
 }

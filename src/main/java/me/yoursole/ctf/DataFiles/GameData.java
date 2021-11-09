@@ -36,6 +36,9 @@ public class GameData {
     public static HashMap<Player, Location> netherBackupLocs = new HashMap<>();
     public static String arrow = "|";
 
+    public static String overworldName = "worldB";
+    public static String netherName = "world_netherB";
+
     static {
         try {
             customItems.put("flag", Flag.flag);

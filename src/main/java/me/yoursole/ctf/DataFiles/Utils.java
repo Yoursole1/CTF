@@ -1,12 +1,14 @@
 package me.yoursole.ctf.DataFiles;
 
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Utils {
@@ -54,5 +56,77 @@ public class Utils {
 
     public static int getRandom(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
+    }
+
+
+    public static void generateNewWorlds(){
+        String overworldName = GameData.overworldName;
+        String netherName = GameData.netherName;
+
+        File f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + overworldName);
+        deleteWorld(f);
+        f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + netherName);
+        deleteWorld(f);
+        //ensures the worlds that are generated are deleted
+
+
+        WorldCreator wc = new WorldCreator(overworldName);
+        wc.environment(World.Environment.NORMAL);
+        wc.type(WorldType.NORMAL);
+        wc.generatorSettings("2;0;1;");
+        wc.seed(getRandom(1,100000));
+        wc.createWorld();
+
+        wc = new WorldCreator(netherName);
+        wc.environment(World.Environment.NETHER);
+        wc.type(WorldType.NORMAL);
+        wc.generatorSettings("2;0;1;");
+        wc.seed(getRandom(1,100000));
+        wc.createWorld();
+
+        //worlds should be generated
+    }
+
+    public static void deleteWorlds(){
+        String overworldName = GameData.overworldName;
+        String netherName = GameData.netherName;
+
+        File f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + overworldName);
+        deleteWorld(f);
+        f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + netherName);
+        deleteWorld(f);
+    }
+
+    public static void deleteWorld(File path) {
+        if(path.exists()) {
+            File files[] = path.listFiles();
+            for(int i=0; i<files.length; i++) {
+                if(files[i].isDirectory()) {
+                    deleteWorld(files[i]);
+                } else {
+                    files[i].delete();
+                }
+            }
+        }
+        path.delete();
+    }
+
+    /*
+    Only teleports the player if they are not in the world at all
+    Does not have an effect if the player is already in the world
+     */
+    public static void sendPlayer(Player player, World world){
+        if(player.getLocation().getWorld()!=world){
+            player.teleport(world.getSpawnLocation());
+        }
+    }
+
+    public static void setWorldSpawn(World world, Location location){
+        world.setSpawnLocation(location);
+    }
+
+    public static ArrayList<Location> getTemples(World world){
+        //work on this (NMS)
+        return null;
     }
 }
