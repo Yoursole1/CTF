@@ -17,11 +17,24 @@ public class ItLocationManager implements Listener {
     private static final String[] arrows = new String[] {
             "←", "↑", "→", "↓", "↖", "↗", "↘", "↙"
     };
+
+    //may use idk (not currently in use)
+    private static boolean inNether(Player p){
+        if(p.getUniqueId()==GameData.it.getUniqueId()){
+            return GameData.inNether;
+        }else{
+            return GameData.netherHunters.contains(p);
+        }
+    }
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e){
         if(GameData.it==null){
             return;
         }
+
+
+
+
         long diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L;
         int min = (int) (diff / 60);
         int sec = (int) (diff % 60);
@@ -135,6 +148,7 @@ public class ItLocationManager implements Listener {
         if(GameData.it==null){
             return;
         }
+
         if(e.getPlayer().getWorld().getEnvironment()== World.Environment.NETHER){
             if(e.getPlayer().getUniqueId()==GameData.it.getUniqueId()){
                 GameData.inNether=false;
@@ -142,7 +156,7 @@ public class ItLocationManager implements Listener {
                 GameData.netherHunters.remove(e.getPlayer());
             }
             //player exits nether (ik its backwards)
-
+            e.setTo(GameData.gameSpawnPoint);
 
         }else if(e.getPlayer().getWorld().getEnvironment()== World.Environment.NORMAL){
             //player enters nether
@@ -153,6 +167,7 @@ public class ItLocationManager implements Listener {
             }else{
                 GameData.netherHunters.add(e.getPlayer());
             }
+            e.setTo(GameData.netherMainPoint);
 
         }
     }

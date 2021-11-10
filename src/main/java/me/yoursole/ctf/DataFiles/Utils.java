@@ -76,7 +76,7 @@ public class Utils {
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
-        wc.seed(getRandom(1,100000));
+        wc.seed(getRandom(1,1000000));
         GameData.world=wc.createWorld();
         //alternative Bukkit.createWorld(wc)
 
@@ -84,7 +84,7 @@ public class Utils {
         wc.environment(World.Environment.NETHER);
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
-        wc.seed(getRandom(1,100000));
+        wc.seed(getRandom(1,1000000));
         GameData.world_nether=wc.createWorld();
 
         //worlds should be generated
@@ -133,8 +133,14 @@ public class Utils {
         world.setSpawnLocation(location);
     }
 
-    public static ArrayList<Location> getStructures(World world, StructureType type){
-        //work on this (NMS)
-        return null;
+    /**
+     * @param world
+     * @param type
+     * @return
+     */
+    public static Location getStructure(World world, StructureType type){
+        Location loc = world.locateNearestStructure(world.getSpawnLocation(),type,10000,false);
+
+        return loc;
     }
 }

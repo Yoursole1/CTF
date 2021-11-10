@@ -23,6 +23,25 @@ public class Start implements CommandExecutor {
             if(sender.isOp()){
                 //
                 Utils.generateNewWorlds();
+                StructureType type = GameData.structureTypes.stream().skip((int) (GameData.structureTypes.size() * Math.random())).findFirst().orElse(null);
+                Location spawn = Utils.getStructure(GameData.world,type);
+                GameData.gameSpawnPoint=spawn;
+                spawn.setY(GameData.world.getHighestBlockYAt(spawn));
+
+                StructureType netherType = GameData.structureTypesNether.stream().skip((int) (GameData.structureTypesNether.size() * Math.random())).findFirst().orElse(null);
+                GameData.netherMainPoint = Utils.getStructure(GameData.world_nether,netherType);
+                GameData.world_nether.getWorldBorder().setSize(100);
+                GameData.world_nether.getWorldBorder().setCenter(GameData.netherMainPoint);
+
+                GameData.world.getWorldBorder().setCenter(spawn);
+                GameData.world.getWorldBorder().setSize(200);
+
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    Utils.sendPlayer(player,GameData.world);
+                }
+
+                //on player death, tp player to world spawn if they are playing the game
+                //on player portal, tp to appropriate dimension
                 //
                 GameData.scores.clear();
                 ScoreboardManager sb = Bukkit.getScoreboardManager();
@@ -43,11 +62,13 @@ public class Start implements CommandExecutor {
                         playera.sendMessage(ChatColor.GREEN + player.getDisplayName()+ " has received the flag");
                         playera.setGlowing(false);
                     }
+                    playera.sendMessage(ChatColor.AQUA+"The selected structure is: "+ (type != null ? type.getName() : null) +"!");
                     playera.setHealth(playera.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
                     playera.getActivePotionEffects().clear();
 
                     //
-                    Utils.sendPlayer(playera,GameData.world);
+
+
                     //
                 }
             }else{

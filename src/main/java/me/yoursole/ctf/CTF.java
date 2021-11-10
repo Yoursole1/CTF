@@ -7,6 +7,7 @@ import me.yoursole.ctf.DataFiles.Items.GoblinsSword;
 import me.yoursole.ctf.DataFiles.Items.HermesBoots;
 import me.yoursole.ctf.DataFiles.Items.ThorsAxe;
 import me.yoursole.ctf.DataFiles.Items.TunnelersPickaxe;
+import me.yoursole.ctf.DataFiles.Utils;
 import me.yoursole.ctf.Events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -36,6 +37,7 @@ public final class CTF extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ItDamagePlayer(), this);
         getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         getServer().getPluginManager().registerEvents(new ItLocationManager(), this);
+        getServer().getPluginManager().registerEvents(new RespawnEvent(), this);
         Objects.requireNonNull(this.getCommand("start")).setExecutor(new Start());
         Objects.requireNonNull(this.getCommand("stop")).setExecutor(new Stop());
         Objects.requireNonNull(this.getCommand("scores")).setExecutor(new Scores());
@@ -53,5 +55,8 @@ public final class CTF extends JavaPlugin {
             Bukkit.removeRecipe(key);
         }
         Bukkit.getScheduler().cancelTask(GameLoop.taskId);
+
+        Utils.deleteWorlds();
+
     }
 }

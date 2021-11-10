@@ -3,6 +3,7 @@ package me.yoursole.ctf.DataFiles;
 import me.yoursole.ctf.DataFiles.Items.*;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.StructureType;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -41,6 +42,23 @@ public class GameData {
     public static String netherName = "world_netherB";
     public static World world;
     public static World world_nether;
+
+    public static ArrayList<StructureType> structureTypes= new ArrayList(){{
+        add(StructureType.VILLAGE);
+        add(StructureType.DESERT_PYRAMID);
+        add(StructureType.JUNGLE_PYRAMID);
+        add(StructureType.MINESHAFT);
+        add(StructureType.PILLAGER_OUTPOST);
+        add(StructureType.WOODLAND_MANSION);
+    }};
+
+    public static ArrayList<StructureType> structureTypesNether= new ArrayList(){{
+        add(StructureType.NETHER_FORTRESS);
+        add(StructureType.BASTION_REMNANT);
+    }};
+
+    public static Location gameSpawnPoint;
+    public static Location netherMainPoint;
 
     static {
         try {
