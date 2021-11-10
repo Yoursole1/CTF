@@ -45,12 +45,14 @@ public class ItLocationManager implements Listener {
         Player player = e.getPlayer();
         String arrow = "|";
         if (GameData.it != null && GameData.it != player) {
+
             Location itLoc = GameData.itLoc.clone();
             if(GameData.netherHunters.contains(player)&&GameData.inNether){
                 itLoc= Objects.requireNonNull(Bukkit.getPlayer(GameData.it.getUniqueId())).getLocation();
             }else if(GameData.netherHunters.contains(player)&&!GameData.inNether){
                 itLoc=GameData.netherBackupLocs.get(player);
             }
+
 
             double a = (itLoc.getX()-player.getLocation().getX());
             double c = Math.sqrt((a*a)+(Math.pow((itLoc.getZ()-player.getLocation().getZ()),2)));

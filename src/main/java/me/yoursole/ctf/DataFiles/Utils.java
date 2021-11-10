@@ -75,14 +75,15 @@ public class Utils {
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
         wc.seed(getRandom(1,100000));
-        wc.createWorld();
+        GameData.world=wc.createWorld();
+        //alternative Bukkit.createWorld(wc)
 
         wc = new WorldCreator(netherName);
         wc.environment(World.Environment.NETHER);
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
         wc.seed(getRandom(1,100000));
-        wc.createWorld();
+        GameData.world_nether=wc.createWorld();
 
         //worlds should be generated
     }
@@ -125,7 +126,7 @@ public class Utils {
         world.setSpawnLocation(location);
     }
 
-    public static ArrayList<Location> getTemples(World world){
+    public static ArrayList<Location> getStructures(World world, StructureType type){
         //work on this (NMS)
         return null;
     }

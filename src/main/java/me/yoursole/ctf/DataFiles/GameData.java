@@ -3,6 +3,7 @@ package me.yoursole.ctf.DataFiles;
 import me.yoursole.ctf.DataFiles.Items.*;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -38,6 +39,8 @@ public class GameData {
 
     public static String overworldName = "worldB";
     public static String netherName = "world_netherB";
+    public static World world;
+    public static World world_nether;
 
     static {
         try {
