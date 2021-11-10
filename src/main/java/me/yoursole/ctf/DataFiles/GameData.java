@@ -25,7 +25,7 @@ public class GameData {
     public static final PotionEffect haste = PotionEffectType.FAST_DIGGING.createEffect(60, 2);
     public static final PotionEffect saturation = PotionEffectType.SATURATION.createEffect(60, 0);
     public static final PotionEffect dolphin = PotionEffectType.DOLPHINS_GRACE.createEffect(60, 1);
-    public static final PotionEffect nightVision = PotionEffectType.NIGHT_VISION.createEffect(200, 68);
+    public static final PotionEffect nightVision = PotionEffectType.NIGHT_VISION.createEffect(2000, 68);
 
     public static final PotionEffect slowness = PotionEffectType.SLOW.createEffect(60, 1);
     public static final PotionEffect regen = PotionEffectType.REGENERATION.createEffect(60, 1);
