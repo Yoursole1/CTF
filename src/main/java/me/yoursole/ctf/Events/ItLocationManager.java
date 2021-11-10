@@ -128,9 +128,9 @@ public class ItLocationManager implements Listener {
         }
 
         if(GameData.inNether){
-            arrow= ChatColor.RED+arrow+" (NETHER)";
+            arrow= ChatColor.DARK_RED+arrow+" (NETHER)";
         }else {
-            arrow=ChatColor.BLUE+arrow+" (OVERWORLD)";
+            arrow=ChatColor.DARK_BLUE+arrow+" (OVERWORLD)";
         }
         if(GameData.arrow.equals(arrow)){
             return;
@@ -171,5 +171,4 @@ public class ItLocationManager implements Listener {
 
         }
     }
-
 }
