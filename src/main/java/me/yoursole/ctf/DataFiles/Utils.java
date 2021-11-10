@@ -10,6 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class Utils {
     public static boolean compareBreakable(ItemStack first, ItemStack second) {
@@ -89,13 +91,18 @@ public class Utils {
     }
 
     public static void deleteWorlds(){
+
         String overworldName = GameData.overworldName;
         String netherName = GameData.netherName;
+
+        Bukkit.unloadWorld(overworldName,false);
+        Bukkit.unloadWorld(netherName,false);
 
         File f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + overworldName);
         deleteWorld(f);
         f = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/" + netherName);
         deleteWorld(f);
+
     }
 
     public static void deleteWorld(File path) {

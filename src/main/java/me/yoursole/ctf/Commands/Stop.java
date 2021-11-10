@@ -3,6 +3,7 @@ package me.yoursole.ctf.Commands;
 import me.yoursole.ctf.DataFiles.GameData;
 import me.yoursole.ctf.DataFiles.GameLoop;
 import me.yoursole.ctf.DataFiles.Items.Flag;
+import me.yoursole.ctf.DataFiles.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,7 +25,10 @@ public class Stop implements CommandExecutor {
                         player.getInventory().remove(Flag.flag);
                         PotionEffect hasteEffect = GameData.it.getPotionEffect(PotionEffectType.FAST_DIGGING);
                         player.setGlowing(false);
+                        Utils.sendPlayer(player,Bukkit.getWorld("world"));
                     }
+                    Utils.deleteWorlds();
+
                     GameData.it.setGlowing(false);
                     GameData.scores.compute(GameData.it.getUniqueId(), (player, score) -> (score == null ? 0 : score) + 60);
                     GameData.it = null;

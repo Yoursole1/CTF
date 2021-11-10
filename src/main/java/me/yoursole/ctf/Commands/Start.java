@@ -3,6 +3,7 @@ package me.yoursole.ctf.Commands;
 import me.yoursole.ctf.DataFiles.GameData;
 import me.yoursole.ctf.DataFiles.GameLoop;
 import me.yoursole.ctf.DataFiles.Items.Flag;
+import me.yoursole.ctf.DataFiles.Utils;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -20,6 +21,9 @@ public class Start implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(GameData.it==null){
             if(sender.isOp()){
+                //
+                Utils.generateNewWorlds();
+                //
                 GameData.scores.clear();
                 ScoreboardManager sb = Bukkit.getScoreboardManager();
                 Scoreboard s = sb.getMainScoreboard();
@@ -41,6 +45,10 @@ public class Start implements CommandExecutor {
                     }
                     playera.setHealth(playera.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
                     playera.getActivePotionEffects().clear();
+
+                    //
+                    Utils.sendPlayer(playera,GameData.world);
+                    //
                 }
             }else{
                 sender.sendMessage("don't u dare ._.");
