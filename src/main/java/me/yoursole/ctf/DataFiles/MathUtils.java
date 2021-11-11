@@ -20,6 +20,7 @@ public class MathUtils {
     public static double logBase(double arg, double base){
         return Math.log(arg)/Math.log(base);
     }
+    public static double naturalLog(double arg){return Math.log(arg)/Math.log(2.71828);}
 
     //Functions belongs to SurrendrX
     public static Vector rotateVector(Vector vector, double angle) {

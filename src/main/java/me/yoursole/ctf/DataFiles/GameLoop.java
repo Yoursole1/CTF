@@ -3,11 +3,10 @@ package me.yoursole.ctf.DataFiles;
 import me.yoursole.ctf.DataFiles.Items.HermesBoots;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.*;
@@ -29,6 +28,8 @@ public class GameLoop {
                 GameData.it.addPotionEffect(GameData.slowness);
                 GameData.it.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40.0);
             }
+
+
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (GameData.it == null) {
                     player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);

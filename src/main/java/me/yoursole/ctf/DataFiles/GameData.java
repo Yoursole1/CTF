@@ -51,7 +51,6 @@ public class GameData {
         add(StructureType.PILLAGER_OUTPOST);
         //do we have these?
         add(StructureType.WOODLAND_MANSION);
-        add(StructureType.SWAMP_HUT);
         //--
         add(StructureType.RUINED_PORTAL);
     }};

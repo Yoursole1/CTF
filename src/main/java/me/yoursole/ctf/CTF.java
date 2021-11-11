@@ -38,6 +38,7 @@ public final class CTF extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         getServer().getPluginManager().registerEvents(new ItLocationManager(), this);
         getServer().getPluginManager().registerEvents(new RespawnEvent(), this);
+        getServer().getPluginManager().registerEvents(new ChunkLoad(), this);
         Objects.requireNonNull(this.getCommand("start")).setExecutor(new Start());
         Objects.requireNonNull(this.getCommand("stop")).setExecutor(new Stop());
         Objects.requireNonNull(this.getCommand("scores")).setExecutor(new Scores());

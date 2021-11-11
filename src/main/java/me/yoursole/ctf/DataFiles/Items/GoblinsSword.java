@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,6 +38,11 @@ public class GoblinsSword implements Listener {
                     item.setAmount(item.getAmount() * 2);
                 }
             }
+        }else if(entity.getType().equals(EntityType.EVOKER)){
+            //not related to Goblins Sword, this removes totems from the game and replaces them with a diamond
+            event.getDrops().clear();
+            event.getDrops().add(new ItemStack(Material.DIAMOND));
+            killer.sendMessage(ChatColor.GREEN+"You received a "+ChatColor.AQUA+"diamond "+ChatColor.GREEN+"instead of a totem!");
         }
     }
 
