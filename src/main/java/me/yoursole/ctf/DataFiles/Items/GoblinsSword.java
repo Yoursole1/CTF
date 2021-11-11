@@ -1,6 +1,7 @@
 package me.yoursole.ctf.DataFiles.Items;
 
 import me.yoursole.ctf.DataFiles.GameData;
+import me.yoursole.ctf.DataFiles.MathUtils;
 import me.yoursole.ctf.DataFiles.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,7 +32,7 @@ public class GoblinsSword implements Listener {
         Player killer = entity.getKiller();
         if (killer == null || entity instanceof Player) return;
         if (Utils.compareBreakable(killer.getInventory().getItemInMainHand(), GoblinsSword.item)) {
-            if (Utils.getRandom(0, 1) == 0) {
+            if (MathUtils.getRandom(0, 1) == 0) {
                 for (ItemStack item : event.getDrops()) {
                     item.setAmount(item.getAmount() * 2);
                 }

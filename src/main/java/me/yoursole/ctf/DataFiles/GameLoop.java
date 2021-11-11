@@ -76,7 +76,7 @@ public class GameLoop {
                         double c = Math.sqrt((a*a)+(Math.pow((itLoc.getZ()-player.getLocation().getZ()),2)));
                         double angleBetween = Math.asin(a/c)*180/3.14;
                         if(player.getLocation().getZ()<itLoc.getZ()){
-                            angleBetween=180-Math.abs(angleBetween);
+                            angleBetween=180- Math.abs(angleBetween);
                             if(player.getLocation().getX()>itLoc.getX()){
                                 angleBetween*=-1;
                             }
@@ -100,7 +100,7 @@ public class GameLoop {
                             if(combined>0){
                                 combined=-1*(360-combined);
                             }else{
-                                combined=(360-Math.abs(combined));
+                                combined=(360- Math.abs(combined));
                             }
                         }
 

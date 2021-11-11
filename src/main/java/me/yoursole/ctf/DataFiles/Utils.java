@@ -56,9 +56,6 @@ public class Utils {
         }
     }
 
-    public static int getRandom(int min, int max) {
-        return (int) (Math.random() * (max - min + 1) + min);
-    }
 
 
     public static void generateNewWorlds(){
@@ -76,7 +73,7 @@ public class Utils {
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
-        wc.seed(getRandom(1,1000000));
+        wc.seed(MathUtils.getRandom(1,1000000));
         GameData.world=wc.createWorld();
         //alternative Bukkit.createWorld(wc)
 
@@ -84,7 +81,7 @@ public class Utils {
         wc.environment(World.Environment.NETHER);
         wc.type(WorldType.NORMAL);
         wc.generatorSettings("2;0;1;");
-        wc.seed(getRandom(1,1000000));
+        wc.seed(MathUtils.getRandom(1,1000000));
         GameData.world_nether=wc.createWorld();
 
         //worlds should be generated
