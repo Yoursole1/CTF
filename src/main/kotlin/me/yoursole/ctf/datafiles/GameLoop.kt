@@ -123,7 +123,7 @@ class GameLoop {
                         arrow = if (GameData.inNether) {
                             "§4${arrow} (NETHER)"
                         } else {
-                            "§1 (OVERWORLD)"
+                            "§1${arrow} (OVERWORLD)"
                         }
                         player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
                         GameData.arrow = arrow
