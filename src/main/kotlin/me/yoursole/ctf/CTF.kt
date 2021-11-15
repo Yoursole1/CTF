@@ -4,6 +4,7 @@ import me.yoursole.ctf.commands.*
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.GameLoop
 import me.yoursole.ctf.datafiles.Utils
+import me.yoursole.ctf.datafiles.Utils.sendToWorld
 import me.yoursole.ctf.datafiles.items.GoblinsSword
 import me.yoursole.ctf.datafiles.items.HermesBoots
 import me.yoursole.ctf.datafiles.items.ThorsAxe
@@ -63,9 +64,10 @@ class CTF : JavaPlugin() {
             Bukkit.removeRecipe(key)
         }
         Bukkit.getScheduler().cancelTask(GameLoop.taskId)
-        Utils.deleteWorlds()
         for (player in Bukkit.getOnlinePlayers()) {
             player.isGlowing = false
+            player sendToWorld Bukkit.getWorld("world")
         }
+        Utils.deleteWorlds()
     }
 }
