@@ -46,10 +46,10 @@ class CTF : JavaPlugin() {
         getCommand("start")!!.setExecutor(Start)
         getCommand("stop")!!.setExecutor(Stop)
         getCommand("scores")!!.setExecutor(Scores)
-        (getCommand("timer"))!!.setExecutor(Timer)
-        (getCommand("togglechat"))!!.setExecutor(ToggleChat)
-        (getCommand("customitem"))!!.setExecutor(CustomItem)
-        (getCommand("top"))!!.setExecutor(Top)
+        getCommand("timer")!!.setExecutor(Timer)
+        getCommand("togglechat")!!.setExecutor(ToggleChat)
+        getCommand("customitem")!!.setExecutor(CustomItem)
+        getCommand("top")!!.setExecutor(Top)
         GameLoop()
 
         for (player in Bukkit.getOnlinePlayers()) {
