@@ -6,21 +6,26 @@ commands:
   start:
     description: Start Game
     usage: /<command>
+    permission: op
   stop:
     description: Stop Game
     usage: /<command>
+    permission: op
   scores:
     description: Get scores
     usage: /<command>
   timer:
     description: Start a timer
     usage: /<command> <clear | ms>
+    permission: op
   togglechat:
     description: Toggles non operators from chatting
     usage: /<command>
+    permission: op
   customitem:
     description: Gives a custom item
-    usage: /<command> <itemID>
+    usage: /<command> <itemID> [amount]
+    permission: op
   top:
     description: Sends you to the highest block above you
     usage: /<command>

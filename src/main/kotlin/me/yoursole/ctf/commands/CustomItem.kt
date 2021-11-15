@@ -8,7 +8,6 @@ import org.bukkit.entity.Player
 
 object CustomItem : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (!sender.isOp) return true
         if (args.isEmpty()) return false
         if (sender !is Player) return false
         val item = GameData.customItems[args[0]]
