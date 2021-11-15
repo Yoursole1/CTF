@@ -52,7 +52,7 @@ object Start : CommandExecutor {
                     playera.sendMessage("§a${player.displayName} has received the flag")
                     playera.isGlowing = false
                 }
-                playera.sendMessage("§bThe selected structure is: ${type?.name}!")
+                playera.sendMessage("§bThe selected structure is: ${type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }}!")
                 playera.health = playera.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
                 playera.activePotionEffects.clear()
             }
