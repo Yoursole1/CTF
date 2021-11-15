@@ -10,6 +10,7 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://repo.codemc.io/repository/nms/")
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://oss.sonatype.org/content/groups/public/")
@@ -20,7 +21,7 @@ val shadowMe by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    implementation("io.papermc.paper:paper:1.17.1-R0.1-SNAPSHOT")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     shadowMe("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
