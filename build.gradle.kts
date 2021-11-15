@@ -21,6 +21,7 @@ val shadowMe by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 dependencies {
+    implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     implementation("io.papermc.paper:paper:1.17.1-R0.1-SNAPSHOT")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
