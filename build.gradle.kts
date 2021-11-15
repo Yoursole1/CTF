@@ -1,7 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
+    kotlin("jvm") version "1.5.31"
     id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
@@ -15,6 +17,11 @@ repositories {
 
 dependencies {
     implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+    shadow("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    shadow("org.jetbrains.kotlin:kotlin-reflect")
+    shadow("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
 }
 
 group = "me.yoursole"
@@ -24,6 +31,13 @@ description = "CapturetheFlag"
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "16"
+            freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+        }
     }
 
     named<Jar>("jar") {
