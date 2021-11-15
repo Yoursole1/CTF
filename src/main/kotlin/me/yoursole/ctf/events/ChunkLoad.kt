@@ -18,7 +18,7 @@ object ChunkLoad : Listener {
         if (c.isLoaded) return
         for (b in c.tileEntities) {
             if (b is Chest) {
-                if (Random.nextInt(0..10) == 5) {
+                if (Random.nextInt(0..3) == 2) {
                     b.blockInventory.addItem(GameData.customItems.values.random())
                 }
             }
