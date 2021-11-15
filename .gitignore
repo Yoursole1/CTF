@@ -114,3 +114,4 @@ build/
 
 # Common working directory
 run/
+server/

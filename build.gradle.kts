@@ -48,6 +48,15 @@ tasks {
     withType<ShadowJar> {
         archiveFileName.set(jar.get().archiveFileName)
     }
+
+    register<Copy>("copyPlugin") {
+        from("$buildDir/libs/")
+        include("*.jar")
+        into("$projectDir/server/plugins/")
+        dependsOn(shadowJar.get())
+    }
+
+    build.get().dependsOn(named("copyPlugin"))
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_16
