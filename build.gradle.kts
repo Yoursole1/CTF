@@ -15,13 +15,17 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
 }
 
+
+val shadowMe by configurations.creating {
+    configurations.implementation.get().extendsFrom(this)
+}
 dependencies {
     implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    shadow("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    shadow("org.jetbrains.kotlin:kotlin-reflect")
-    shadow("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
+    shadowMe("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    shadowMe("org.jetbrains.kotlin:kotlin-reflect")
+    shadowMe("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 }
 
 group = "me.yoursole"
@@ -46,6 +50,7 @@ tasks {
     }
 
     withType<ShadowJar> {
+        configurations = listOf(shadowMe)
         archiveFileName.set(jar.get().archiveFileName)
     }
 
