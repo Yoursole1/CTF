@@ -29,3 +29,6 @@ commands:
   top:
     description: Sends you to the highest block above you
     usage: /<command>
+  test:
+    description: test
+    usage: /<command>

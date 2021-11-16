@@ -1,8 +1,7 @@
 package me.yoursole.ctf.commands
 
 import me.yoursole.ctf.datafiles.GameData
-import me.yoursole.ctf.datafiles.Utils
-import me.yoursole.ctf.datafiles.Utils.sendToWorld
+import me.yoursole.ctf.datafiles.WorldManager
 import me.yoursole.ctf.datafiles.items.Flag
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
@@ -16,9 +15,8 @@ object Stop : CommandExecutor {
             for (player in Bukkit.getOnlinePlayers()) {
                 player.inventory.remove(Flag.flag)
                 player.isGlowing = false
-                player sendToWorld Bukkit.getWorld("world")
             }
-            Utils.deleteWorlds()
+            WorldManager.deleteWorlds()
             GameData.it!!.isGlowing = false
             GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 60 }
             GameData.it = null

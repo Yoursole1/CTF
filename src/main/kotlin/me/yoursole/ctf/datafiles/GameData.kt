@@ -28,8 +28,12 @@ object GameData {
     val netherHunters = ArrayList<Player>()
     val netherBackupLocs = HashMap<Player, Location>()
     var arrow = "|"
-    val overworldName = "worldB"
-    val netherName = "world_netherB"
+    val overworldName by lazy {
+        NamespacedKey.fromString("ctf:world_game")!!
+    }
+    val netherName by lazy {
+        NamespacedKey.fromString("ctf:world_nether_game")!!
+    }
     var world: World? = null
     var world_nether: World? = null
     val structureTypes = setOf(

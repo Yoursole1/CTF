@@ -2,7 +2,6 @@ package me.yoursole.ctf.datafiles
 
 import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.items.HermesBoots
-import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.attribute.Attribute

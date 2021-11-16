@@ -1,9 +1,10 @@
 package me.yoursole.ctf.commands
 
 import me.yoursole.ctf.datafiles.GameData
-import me.yoursole.ctf.datafiles.Utils
-import me.yoursole.ctf.datafiles.Utils.getStructureNearSpawn
-import me.yoursole.ctf.datafiles.Utils.sendToWorld
+import me.yoursole.ctf.datafiles.Utils.findSafeSpawnOrMake
+import me.yoursole.ctf.datafiles.WorldManager
+import me.yoursole.ctf.datafiles.WorldManager.getStructureNearSpawn
+import me.yoursole.ctf.datafiles.WorldManager.sendToWorld
 import me.yoursole.ctf.datafiles.items.Flag
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -17,44 +18,41 @@ object Start : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (GameData.it == null) {
             //
-            Utils.generateNewWorlds()
+            WorldManager.generateNewWorlds()
             val type = GameData.structureTypes.random()
-            val spawn = GameData.world.getStructureNearSpawn(type)
+            val spawn = GameData.world.getStructureNearSpawn(type)!!.apply { y = GameData.world!!.getHighestBlockYAt(this).toDouble() }.findSafeSpawnOrMake()
             GameData.gameSpawnPoint = spawn
-            spawn!!.y = GameData.world!!.getHighestBlockYAt(spawn).toDouble()
-            GameData.netherMainPoint =
-                GameData.world_nether.getStructureNearSpawn(GameData.structureTypesNether.random())
+            val netherSpawn = GameData.world_nether.getStructureNearSpawn(GameData.structureTypesNether.random())!!.findSafeSpawnOrMake()
+            GameData.netherMainPoint = netherSpawn
             GameData.world_nether!!.worldBorder.size = 100.0
             GameData.world_nether!!.worldBorder.center = GameData.netherMainPoint!!
             GameData.world!!.worldBorder.center = spawn
             GameData.world!!.worldBorder.size = 200.0
-            for (player in Bukkit.getOnlinePlayers()) {
-                player sendToWorld GameData.world
-            }
-
             //on player death, tp player to world spawn if they are playing the game
             //on player portal, tp to appropriate dimension
             //
             GameData.scores.clear()
-            val sb = Bukkit.getScoreboardManager()
-            val s = sb.mainScoreboard
-            val o = s.getObjective(DisplaySlot.SIDEBAR)
-            o?.unregister()
-            val player = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL }.random()
-            player.inventory.addItem(Flag.flag)
-            player.isGlowing = true
-            GameData.itLoc = player.location
-            GameData.it = player
-            player.sendMessage("§aYou got the flag to start!")
-            for (playera in Bukkit.getOnlinePlayers()) {
-                GameData.scores[playera.uniqueId] = 0
-                if (player.displayName != playera.displayName) {
-                    playera.sendMessage("§a${player.displayName} has received the flag")
-                    playera.isGlowing = false
+            Bukkit.getScoreboardManager().mainScoreboard.getObjective(DisplaySlot.SIDEBAR)?.unregister()
+            val chosen = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL }.random()
+            chosen.inventory.addItem(Flag.flag)
+            chosen.isGlowing = true
+            GameData.itLoc = chosen.location
+            GameData.it = chosen
+            chosen.sendMessage("§aYou got the flag to start!")
+            for (player in Bukkit.getOnlinePlayers()) {
+                player sendToWorld GameData.world
+                GameData.scores[player.uniqueId] = 0
+                if (player.displayName != player.displayName) {
+                    player.sendMessage("§a${player.displayName} has received the flag")
+                    player.isGlowing = false
                 }
-                playera.sendMessage("§bThe selected structure is: ${type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }}!")
-                playera.health = playera.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
-                playera.activePotionEffects.clear()
+                player.sendMessage(
+                    "§bThe selected structure is: ${
+                        type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }
+                    }!"
+                )
+                player.health = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
+                player.activePotionEffects.clear()
             }
         } else {
             sender.sendMessage("§cThe game is already running")

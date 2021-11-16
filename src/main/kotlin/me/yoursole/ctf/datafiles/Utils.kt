@@ -1,12 +1,11 @@
 package me.yoursole.ctf.datafiles
 
-import org.bukkit.*
+import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
-import java.io.File
-import kotlin.random.Random
-import kotlin.random.nextLong
 
 object Utils {
     fun compareBreakable(first: ItemStack?, second: ItemStack?): Boolean {
@@ -34,70 +33,6 @@ object Utils {
         return similar
     }
 
-    fun generateNewWorlds() {
-        val overworldName = GameData.overworldName
-        val netherName = GameData.netherName
-        var f = File(Bukkit.getServer().worldContainer.absolutePath + "/" + overworldName)
-        deleteWorld(f)
-        f = File(Bukkit.getServer().worldContainer.absolutePath + "/" + netherName)
-        deleteWorld(f)
-        //ensures the worlds that are generated are deleted
-        var wc = WorldCreator(overworldName)
-        wc.environment(World.Environment.NORMAL)
-        wc.type(WorldType.NORMAL)
-        wc.generatorSettings("2;0;1;")
-        wc.seed(Random.nextLong(1L..100000L))
-        GameData.world = wc.createWorld()
-        //alternative Bukkit.createWorld(wc)
-        wc = WorldCreator(netherName)
-        wc.environment(World.Environment.NETHER)
-        wc.type(WorldType.NORMAL)
-        wc.generatorSettings("2;0;1;")
-        wc.seed(Random.nextLong(1L..100000L))
-        GameData.world_nether = wc.createWorld()
-
-        //worlds should be generated
-    }
-
-    fun deleteWorlds() {
-        val overworldName = GameData.overworldName
-        val netherName = GameData.netherName
-        Bukkit.unloadWorld(overworldName, false)
-        Bukkit.unloadWorld(netherName, false)
-        var f = File(Bukkit.getServer().worldContainer.absolutePath + "/" + overworldName)
-        deleteWorld(f)
-        f = File(Bukkit.getServer().worldContainer.absolutePath + "/" + netherName)
-        deleteWorld(f)
-    }
-
-    fun deleteWorld(path: File) {
-        if (path.exists()) {
-            for (file in path.listFiles()!!) {
-                if (file.isDirectory) {
-                    deleteWorld(file)
-                } else {
-                    file.delete()
-                }
-            }
-        }
-        path.delete()
-    }
-
-    /*
-    Only teleports the player if they are not in the world at all
-    Does not have an effect if the player is already in the world
-     */
-    infix fun Player.sendToWorld(world: World?) {
-        if (world != null && location.world != world) {
-            teleport(world.spawnLocation)
-        }
-    }
-
-    fun World?.getStructureNearSpawn(type: StructureType?): Location? {
-        if (this == null || type == null) return null
-        return locateNearestStructure(spawnLocation, type, 10000, false)
-    }
-
     fun Player.doTelekinesis(vararg stack: ItemStack) {
         val items = inventory.addItem(*stack)
         if (items.isNotEmpty()) {
@@ -108,5 +43,47 @@ object Utils {
                 drop.thrower = uniqueId
             }
         }
+    }
+
+    fun Location.isSafeSpawn(): Boolean {
+        val block = world.getBlockAt(this)
+        val blockAbove = world.getBlockAt(clone().add(0.0, 1.0, 0.0))
+        val blockBelow = world.getBlockAt(clone().add(0.0, -1.0, 0.0))
+        if (!blockBelow.isSolid || block.isSolid || blockAbove.isSolid) return false
+        if (blockAbove.type == Material.LAVA || blockAbove.type == Material.FIRE) return false
+        if (block.type == Material.LAVA || block.type == Material.FIRE) return false
+        return true
+    }
+
+    fun Location.findSafeSpawnOrMake(): Location {
+        if (this.isSafeSpawn()) return this
+        for (x in -5..5) {
+            for (y in -5..5) {
+                for (z in -5..5) {
+                    val new = clone().add(x.toDouble(), y.toDouble(), z.toDouble())
+                    if (new.isSafeSpawn()) return new
+                }
+            }
+        }
+        world.getBlockAt(clone().add(1.0, -1.0, 0.0)).type = Material.BEDROCK
+        world.getBlockAt(clone().add(-1.0, -1.0, 0.0)).type = Material.BEDROCK
+        world.getBlockAt(clone().add(0.0, -1.0, 1.0)).type = Material.BEDROCK
+        world.getBlockAt(clone().add(0.0, -1.0, -1.0)).type = Material.BEDROCK
+
+        world.getBlockAt(clone().add(1.0, 0.0, 0.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(-1.0, 0.0, 0.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(0.0, 0.0, 1.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(0.0, 0.0, -1.0)).type = Material.WARPED_SIGN
+
+        world.getBlockAt(clone().add(1.0, 1.0, 0.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(-1.0, 1.0, 0.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(0.0, 1.0, 1.0)).type = Material.WARPED_SIGN
+        world.getBlockAt(clone().add(0.0, 1.0, -1.0)).type = Material.WARPED_SIGN
+
+        world.getBlockAt(clone().add(0.0, 2.0, 0.0)).type = Material.BEDROCK
+        world.getBlockAt(clone()).type = Material.AIR
+        world.getBlockAt(clone().add(0.0, 1.0, 0.0)).type = Material.AIR
+        world.getBlockAt(clone().add(0.0, -1.0, 0.0)).type = Material.BEDROCK
+        return this
     }
 }

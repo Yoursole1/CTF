@@ -3,8 +3,7 @@ package me.yoursole.ctf
 import me.yoursole.ctf.commands.*
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.GameLoop
-import me.yoursole.ctf.datafiles.Utils
-import me.yoursole.ctf.datafiles.Utils.sendToWorld
+import me.yoursole.ctf.datafiles.WorldManager
 import me.yoursole.ctf.datafiles.items.GoblinsSword
 import me.yoursole.ctf.datafiles.items.HermesBoots
 import me.yoursole.ctf.datafiles.items.ThorsAxe
@@ -24,6 +23,7 @@ class CTF : JavaPlugin() {
     }
 
     override fun onEnable() {
+        server.pluginManager.registerEvents(WorldManager, this)
         server.pluginManager.registerEvents(MoveItemEvent, this)
         server.pluginManager.registerEvents(DropItemEvent, this)
         server.pluginManager.registerEvents(PlayerDeath, this)
@@ -51,6 +51,7 @@ class CTF : JavaPlugin() {
         getCommand("togglechat")!!.setExecutor(ToggleChat)
         getCommand("customitem")!!.setExecutor(CustomItem)
         getCommand("top")!!.setExecutor(Top)
+        getCommand("test")!!.setExecutor(Test)
         GameLoop()
 
         for (player in Bukkit.getOnlinePlayers()) {
@@ -64,10 +65,9 @@ class CTF : JavaPlugin() {
             Bukkit.removeRecipe(key)
         }
         Bukkit.getScheduler().cancelTask(GameLoop.taskId)
+        WorldManager.deleteWorlds()
         for (player in Bukkit.getOnlinePlayers()) {
             player.isGlowing = false
-            player sendToWorld Bukkit.getWorld("world")
         }
-        Utils.deleteWorlds()
     }
 }
