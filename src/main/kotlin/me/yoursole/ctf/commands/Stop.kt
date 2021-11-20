@@ -11,7 +11,7 @@ import java.util.*
 
 object Stop : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (GameData.it != null) {
+        if (GameData.gameRunning) {
             for (player in Bukkit.getOnlinePlayers()) {
                 player.inventory.remove(Flag.flag)
                 player.isGlowing = false

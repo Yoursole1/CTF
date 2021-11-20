@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent
 object PlaceFlagEvent : Listener {
     @EventHandler
     fun onPlaceFlag(e: BlockPlaceEvent) {
-        if (GameData.it != null && e.blockPlaced.type == Material.BLUE_BANNER || e.blockPlaced.type == Material.BLUE_WALL_BANNER) {
+        if (GameData.gameRunning && e.blockPlaced.type == Material.BLUE_BANNER || e.blockPlaced.type == Material.BLUE_WALL_BANNER) {
             e.isCancelled = true
             e.player.sendMessage("§cYou can not place this item")
         }

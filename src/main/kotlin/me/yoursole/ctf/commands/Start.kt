@@ -21,7 +21,7 @@ object Start : CommandExecutor {
     var id:Int = TODO()
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (GameData.it == null) {
+        if (!GameData.gameRunning) {
             //
             WorldManager.generateNewWorlds()
             val type = GameData.structureTypes.random()

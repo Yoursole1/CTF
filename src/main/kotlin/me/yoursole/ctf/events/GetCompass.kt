@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent
 object GetCompass : Listener {
     @EventHandler
     fun onGetCompass(e: CraftItemEvent) {
-        if (GameData.it != null) {
+        if (GameData.gameRunning) {
             if (e.currentItem?.type == Material.COMPASS) {
                 (e.whoClicked as Player).compassTarget = GameData.it!!.location
                 e.whoClicked.sendMessage("§aYour compass is now pointing to the player who has the flag!")
@@ -23,7 +23,7 @@ object GetCompass : Listener {
 
     @EventHandler
     fun onPickupItem(e: PlayerPickupItemEvent) {
-        if (GameData.it != null) {
+        if (GameData.gameRunning) {
             if (e.item.itemStack.type == Material.COMPASS) {
                 e.player.compassTarget = GameData.it!!.location
                 e.player.sendMessage("§aYour compass is now pointing to the player who has the flag!")
@@ -33,7 +33,7 @@ object GetCompass : Listener {
 
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent?) {
-        if (GameData.it != null) {
+        if (GameData.gameRunning) {
             for (player in Bukkit.getOnlinePlayers()) {
                 player.compassTarget = GameData.it!!.location
             }

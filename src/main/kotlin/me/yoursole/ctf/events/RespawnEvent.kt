@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerRespawnEvent
 object RespawnEvent : Listener {
     @EventHandler
     fun onPlayerRespawn(e: PlayerRespawnEvent) {
-        if (GameData.it == null) return
+        if (!GameData.gameRunning) return
         e.respawnLocation = GameData.gameSpawnPoint!!
     }
 }

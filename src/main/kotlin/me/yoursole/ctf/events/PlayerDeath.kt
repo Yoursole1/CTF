@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent
 object PlayerDeath : Listener {
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
-        if (GameData.it == null) return
+        if (!GameData.gameRunning) return
         if (e.player.uniqueId == GameData.it!!.uniqueId) {
             e.player.inventory.remove(Flag.flag)
             e.player.isGlowing = false

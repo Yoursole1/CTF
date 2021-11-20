@@ -21,13 +21,13 @@ class GameLoop {
     init {
         taskId = Bukkit.getScheduler()
             .scheduleSyncRepeatingTask(CTF.instance, {
-                if (GameData.it != null) {
+                if (GameData.gameRunning) {
                     GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 1 }
                     GameData.it!!.addPotionEffect(GameData.slowness)
                     GameData.it!!.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 40.0
                 }
                 for (player in Bukkit.getOnlinePlayers()) {
-                    if (GameData.it == null) {
+                    if (!GameData.gameRunning) {
                         player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 20.0
                         player.addPotionEffect(GameData.saturation)
                     } else {
@@ -54,11 +54,11 @@ class GameLoop {
                     val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
                     val min = (diff / 60).toInt()
                     val sec = (diff % 60).toInt()
-                    val flagHolder = if (GameData.it == null) "Nobody" else GameData.it!!.displayName
+                    val flagHolder = if (!GameData.gameRunning) "Nobody" else GameData.it!!.displayName
                     val timeString = if (min > 0) min.toString() + "m " + sec + "s" else sec.toString() + "s"
                     for (player in Bukkit.getOnlinePlayers()) {
                         var arrow = "|"
-                        if (GameData.it != null && GameData.it !== player) {
+                        if (GameData.gameRunning && GameData.it !== player) {
                             var itLoc = GameData.itLoc
                             if (GameData.netherHunters.contains(player) && GameData.inNether) {
                                 itLoc = (Bukkit.getPlayer(GameData.it!!.uniqueId))!!.location

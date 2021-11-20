@@ -16,7 +16,7 @@ import kotlin.math.*
 object ItLocationManager : Listener {
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent) {
-        if (GameData.it == null) return
+        if (!GameData.gameRunning) return
         val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
         val min = (diff / 60).toInt()
         val sec = (diff % 60).toInt()
@@ -26,7 +26,7 @@ object ItLocationManager : Listener {
             GameData.backUpLoc = GameData.itLoc
             return
         }
-        if (GameData.it != null && e.player.uniqueId == GameData.it!!.uniqueId && !GameData.inNether) {
+        if (GameData.gameRunning && e.player.uniqueId == GameData.it!!.uniqueId && !GameData.inNether) {
             GameData.itLoc = e.player.location
             return
         }
@@ -108,7 +108,7 @@ object ItLocationManager : Listener {
 
     @EventHandler
     fun onPlayerChangeDim(e: PlayerPortalEvent) {
-        if (GameData.it == null) {
+        if (!GameData.gameRunning) {
             return
         }
         if (e.player.world.environment == World.Environment.NETHER) {
