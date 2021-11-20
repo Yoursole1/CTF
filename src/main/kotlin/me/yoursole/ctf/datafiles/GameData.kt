@@ -42,7 +42,7 @@ object GameData {
         StructureType.JUNGLE_PYRAMID,
         StructureType.MINESHAFT,
         StructureType.PILLAGER_OUTPOST,
-        StructureType.WOODLAND_MANSION,
+        //StructureType.WOODLAND_MANSION,
         StructureType.RUINED_PORTAL
     )
     val structureTypesNether = setOf(StructureType.NETHER_FORTRESS, StructureType.BASTION_REMNANT)
