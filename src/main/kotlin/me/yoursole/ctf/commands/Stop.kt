@@ -16,6 +16,10 @@ object Stop : CommandExecutor {
                 player.inventory.remove(Flag.flag)
                 player.isGlowing = false
             }
+
+            if(Start.scheduler.isQueued(Start.id))
+                Start.scheduler.cancelTask(Start.id)
+
             WorldManager.deleteWorlds()
             GameData.it!!.isGlowing = false
             GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 60 }

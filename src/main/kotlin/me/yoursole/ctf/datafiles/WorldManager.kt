@@ -72,7 +72,7 @@ object WorldManager : Listener {
 
     fun World?.getStructureNearSpawn(type: StructureType?): Location? {
         if (this == null || type == null) return null
-        return locateNearestStructure(spawnLocation, type, 100, false)
+        return locateNearestStructure(spawnLocation, type, 10000, false)
     }
 
     fun World.evacuatePlayers() {

@@ -9,5 +9,10 @@ object Leave : Listener {
     @EventHandler
     fun onPlayerLeave(e: PlayerQuitEvent) {
         GameData.scores.remove(e.player.uniqueId)
+        /*
+        GameData.netherHunters.remove(e.player)
+        GameData.netherBackupLocs.remove(e.player)
+         */
+
     }
 }

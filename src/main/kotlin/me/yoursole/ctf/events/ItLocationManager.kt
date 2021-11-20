@@ -100,7 +100,7 @@ object ItLocationManager : Listener {
         arrow = if (GameData.inNether) {
             "§4${arrow} (NETHER)"
         } else {
-            "§1 (OVERWORLD)"
+            "§1${arrow} (OVERWORLD)"
         }
         if (GameData.arrow == arrow) return
         player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
