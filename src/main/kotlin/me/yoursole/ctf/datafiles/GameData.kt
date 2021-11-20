@@ -25,6 +25,8 @@ object GameData {
     var itLoc: Location? = null
     var inNether = false
     var backUpLoc: Location? = null
+    var dropLoc: Location? = null
+    var droppingPos: Location? = null
     val netherHunters = ArrayList<Player>()
     val netherBackupLocs = HashMap<Player, Location>()
     var arrow = "|"

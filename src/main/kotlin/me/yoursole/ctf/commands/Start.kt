@@ -1,24 +1,21 @@
 package me.yoursole.ctf.commands
 
+import me.yoursole.ctf.CTF
+import me.yoursole.ctf.datafiles.FlagDropper
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils.findSafeSpawnOrMake
 import me.yoursole.ctf.datafiles.WorldManager
 import me.yoursole.ctf.datafiles.WorldManager.getStructureNearSpawn
 import me.yoursole.ctf.datafiles.WorldManager.sendToWorld
-import me.yoursole.ctf.datafiles.items.Flag
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
-import org.bukkit.GameMode
 import org.bukkit.attribute.Attribute
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.scoreboard.DisplaySlot
-import java.util.*
 
 object Start : CommandExecutor {
-    var scheduler:org.bukkit.scheduler.BukkitScheduler = TODO()
-    var id:Int = TODO()
+    var id: Int = -1
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (!GameData.gameRunning) {
@@ -41,31 +38,23 @@ object Start : CommandExecutor {
             //set the timer
             GameData.timerMs = System.currentTimeMillis() + 24000L //15 minutes
 
-            GameData.gameRunning=true
-
-            scheduler = Bukkit.getServer().scheduler
-            id = scheduler.scheduleSyncDelayedTask(
-                Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("CapturetheFlag"))!!,
+            GameData.gameRunning = true
+            id = Bukkit.getScheduler().scheduleSyncDelayedTask(
+                CTF.instance,
                 {
                     GameData.scores.clear()
                     Bukkit.getScoreboardManager().mainScoreboard.getObjective(DisplaySlot.SIDEBAR)?.unregister()
-                    val chosen = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL }.random()
-                    chosen.inventory.addItem(Flag.flag)
-                    chosen.isGlowing = true
-                    GameData.itLoc = chosen.location
-                    GameData.it = chosen
-                    chosen.sendMessage("§aYou got the flag to start!")
+                    FlagDropper.dropFlag()
                     for (player in Bukkit.getOnlinePlayers()) {
                         GameData.scores[player.uniqueId] = 0
-                        if (player.displayName != player.displayName) {
-                            player.sendMessage("§a${player.displayName} has received the flag")
-                            player.isGlowing = false
-                        }
+                        player.isGlowing = false
                         player.sendMessage(
                             "§bThe selected structure is: ${
                                 type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }
                             }!"
                         )
+                        player.sendMessage(
+                            "§bThe flag is dropping to (${GameData.dropLoc?.x}, ${GameData.dropLoc?.z})")
                         player.health = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
                         player.activePotionEffects.clear()
                     }

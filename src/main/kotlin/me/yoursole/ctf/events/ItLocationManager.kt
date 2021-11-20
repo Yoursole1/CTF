@@ -1,6 +1,7 @@
 package me.yoursole.ctf.events
 
 import me.yoursole.ctf.datafiles.GameData
+import me.yoursole.ctf.datafiles.Utils.getArrowFor
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -43,59 +44,7 @@ object ItLocationManager : Listener {
             } else if (GameData.netherHunters.contains(player) && !GameData.inNether) {
                 itLoc = GameData.netherBackupLocs[player]
             }
-            val a = itLoc!!.x - player.location.x
-            val c = sqrt(a * a + (itLoc.z - player.location.z).pow(2.0))
-            var angleBetween = asin(a / c) * 180 / 3.14
-            if (player.location.z < itLoc.z) {
-                angleBetween = 180 - abs(angleBetween)
-                if (player.location.x > itLoc.x) {
-                    angleBetween *= -1.0
-                }
-            }
-            val angle = toRadians(player.location.yaw.toDouble())
-            val x = cos(angle)
-            var angleFacing = 180 - acos(x) * 180 / 3.14
-            if (player.location.direction.x < 0) {
-                angleFacing *= -1.0
-            }
-            /*
-            if(angleFacing<-90&&angleBetween<-90){
-
-            }
-            */
-            var combined = angleFacing - angleBetween
-            if (abs(combined) > 180) {
-                combined = if (combined > 0) {
-                    -1 * (360 - combined)
-                } else {
-                    360 - abs(combined)
-                }
-            }
-            if (combined in -22.5..22.5) {
-                //forward
-                arrow = arrows[1]
-            } else if (combined in 22.5..67.5) {
-                //diag left forward
-                arrow = arrows[4]
-            } else if (combined in 67.5..112.5) {
-                //left
-                arrow = arrows[0]
-            } else if (combined in 112.5..157.5) {
-                //diag left backword
-                arrow = arrows[7]
-            } else if (combined in 157.0..180.0 || combined in -180.0..-157.5) {
-                //backwards
-                arrow = arrows[3]
-            } else if (combined in -157.5..-112.5) {
-                // backward right
-                arrow = arrows[6]
-            } else if (combined in -112.5..-67.5) {
-                // right
-                arrow = arrows[2]
-            } else if (combined in -67.5..-22.5) {
-                // forward right
-                arrow = arrows[5]
-            }
+            arrow = player.getArrowFor(itLoc!!).char.toString()
         }
         arrow = if (GameData.inNether) {
             "§4${arrow} (NETHER)"

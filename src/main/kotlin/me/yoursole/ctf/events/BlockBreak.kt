@@ -1,5 +1,6 @@
 package me.yoursole.ctf.events
 
+import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils.doTelekinesis
 import org.bukkit.GameMode
 import org.bukkit.Material
@@ -15,7 +16,8 @@ import kotlin.random.nextInt
 object BlockBreak : Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     fun onBlockBreak(event: BlockBreakEvent) {
-        if (!event.isDropItems || event.player.gameMode == GameMode.CREATIVE) return
+        if (GameData.dropLoc != null && event.block.location.distanceSquared(GameData.dropLoc!!) <= 9) return
+        if (event.isCancelled || !event.isDropItems || event.player.gameMode == GameMode.CREATIVE) return
         val drops = event.block.getDrops(event.player.inventory.itemInMainHand)
         if (drops.isEmpty()) return
         for (d in drops) {

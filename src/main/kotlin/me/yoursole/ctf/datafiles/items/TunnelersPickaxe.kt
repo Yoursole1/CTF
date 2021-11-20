@@ -20,6 +20,7 @@ import kotlin.math.roundToInt
 object TunnelersPickaxe : Listener {
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
+        if (event.isCancelled) return
         val player = event.player
         val block = event.block
         val face = player.eyeLocation.direction

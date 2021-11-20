@@ -1,6 +1,7 @@
 package me.yoursole.ctf
 
 import me.yoursole.ctf.commands.*
+import me.yoursole.ctf.datafiles.FlagDropper
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.GameLoop
 import me.yoursole.ctf.datafiles.WorldManager
@@ -44,6 +45,7 @@ class CTF : JavaPlugin() {
         server.pluginManager.registerEvents(RespawnEvent, this)
         server.pluginManager.registerEvents(ChunkLoad, this)
         server.pluginManager.registerEvents(EntityDeath, this)
+        server.pluginManager.registerEvents(FlagDropper, this)
         getCommand("start")!!.setExecutor(Start)
         getCommand("stop")!!.setExecutor(Stop)
         getCommand("scores")!!.setExecutor(Scores)

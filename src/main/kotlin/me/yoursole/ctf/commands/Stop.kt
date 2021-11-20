@@ -17,20 +17,22 @@ object Stop : CommandExecutor {
                 player.isGlowing = false
             }
 
-            if(Start.scheduler.isQueued(Start.id))
-                Start.scheduler.cancelTask(Start.id)
+            if(Bukkit.getScheduler().isQueued(Start.id))
+                Bukkit.getScheduler().cancelTask(Start.id)
 
             WorldManager.deleteWorlds()
             GameData.it!!.isGlowing = false
             GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 60 }
             GameData.it = null
+            GameData.droppingPos = null
+            GameData.dropLoc = null
             sender.sendMessage("Game Stopped")
             val a = GameData.scores.entries.maxByOrNull { it.value }!!.key
             for (player in Bukkit.getOnlinePlayers()) {
                 player.sendMessage("§aThe winner is ${Bukkit.getPlayer(a)!!.displayName}!")
             }
             GameData.scores.clear()
-            GameData.gameRunning=false
+            GameData.gameRunning = false
         } else {
             sender.sendMessage("§cThe game is not running")
         }
