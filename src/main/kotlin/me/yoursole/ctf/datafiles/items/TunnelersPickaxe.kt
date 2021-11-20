@@ -3,9 +3,11 @@ package me.yoursole.ctf.datafiles.items
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
 import me.yoursole.ctf.datafiles.Utils.doTelekinesis
+import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
@@ -42,7 +44,7 @@ object TunnelersPickaxe : Listener {
     }
 
     val item by lazy {
-        ItemStack(Material.GOLDEN_PICKAXE).apply {
+        CraftItemStack.asCraftCopy(ItemStack(Material.GOLDEN_PICKAXE)).apply {
             itemMeta = itemMeta.apply {
                 setDisplayName("§6Tunneler's Pickaxe")
                 lore = listOf(
@@ -61,6 +63,7 @@ object TunnelersPickaxe : Listener {
             recipe.setIngredient('S', Material.STICK)
             recipe.group = "ctf:tunnelerspickaxe"
             Bukkit.addRecipe(recipe)
+            setCTFId("tunnelerspickaxe")
             GameData.recipeKeys["tunnelerspickaxe"] = key
         }
     }

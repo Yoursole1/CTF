@@ -2,9 +2,11 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
+import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -29,8 +31,8 @@ object GoblinsSword : Listener {
         }
     }
 
-    val item by lazy {
-        ItemStack(Material.STONE_SWORD).apply {
+    val item: CraftItemStack by lazy {
+        CraftItemStack.asCraftCopy(ItemStack(Material.STONE_SWORD)).apply {
             itemMeta = itemMeta.apply {
                 setDisplayName("§6Goblin's Sword")
                 lore = listOf(
@@ -46,6 +48,7 @@ object GoblinsSword : Listener {
             recipe.setIngredient('B', Material.BONE)
             recipe.group = "ctf:goblinssword"
             Bukkit.addRecipe(recipe)
+            setCTFId("goblinssword")
             GameData.recipeKeys["goblinssword"] = key
         }
     }

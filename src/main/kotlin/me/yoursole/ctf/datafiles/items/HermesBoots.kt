@@ -2,12 +2,14 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
+import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -21,8 +23,8 @@ import org.bukkit.inventory.meta.LeatherArmorMeta
 import java.util.*
 
 object HermesBoots : Listener {
-    val item by lazy {
-        ItemStack(Material.LEATHER_BOOTS).apply {
+    val item: CraftItemStack by lazy {
+        CraftItemStack.asCraftCopy(ItemStack(Material.LEATHER_BOOTS)).apply {
             itemMeta = (itemMeta as LeatherArmorMeta).apply {
                 setDisplayName("§7Hermes' Boots")
                 lore = listOf(
@@ -61,6 +63,7 @@ object HermesBoots : Listener {
             recipe.setIngredient('D', Material.DIAMOND)
             recipe.group = "ctf:hermes"
             Bukkit.addRecipe(recipe)
+            setCTFId("hermes")
             GameData.recipeKeys["hermes"] = key
         }
     }
