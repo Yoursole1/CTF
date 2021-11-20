@@ -14,8 +14,9 @@ object GetCompass : Listener {
     @EventHandler
     fun onGetCompass(e: CraftItemEvent) {
         if (GameData.gameRunning) {
-            if (e.currentItem?.type == Material.COMPASS) {
-                (e.whoClicked as Player).compassTarget = GameData.it!!.location
+            if (e.currentItem?.type == Material.COMPASS && e.whoClicked is Player) {
+                val player = e.whoClicked as Player
+                player.compassTarget = GameData.it?.location ?: GameData.droppingPos ?: player.bedSpawnLocation ?: player.world.spawnLocation
                 e.whoClicked.sendMessage("§aYour compass is now pointing to the player who has the flag!")
             }
         }
@@ -23,20 +24,19 @@ object GetCompass : Listener {
 
     @EventHandler
     fun onPickupItem(e: PlayerPickupItemEvent) {
-        if (GameData.gameRunning) {
-            if (e.item.itemStack.type == Material.COMPASS) {
-                e.player.compassTarget = GameData.it!!.location
-                e.player.sendMessage("§aYour compass is now pointing to the player who has the flag!")
-            }
+        if (GameData.gameRunning) return
+
+        if (e.item.itemStack.type == Material.COMPASS) {
+            e.player.compassTarget = GameData.it?.location ?: GameData.droppingPos ?: e.player.bedSpawnLocation ?: e.player.world.spawnLocation
+            e.player.sendMessage("§aYour compass is now pointing to the player who has the flag!")
         }
     }
 
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent?) {
-        if (GameData.gameRunning) {
-            for (player in Bukkit.getOnlinePlayers()) {
-                player.compassTarget = GameData.it!!.location
-            }
+        if (!GameData.gameRunning) return
+        for (player in Bukkit.getOnlinePlayers()) {
+            player.compassTarget = GameData.it?.location ?: GameData.droppingPos ?: player.bedSpawnLocation ?: player.world.spawnLocation
         }
     }
 }

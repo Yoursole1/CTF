@@ -131,7 +131,7 @@ object Utils {
             else -> Arrows.NONE
         }
     }
-    
+
     enum class Arrows(val char: Char) {
         NONE('|'),
         LEFT('←'),

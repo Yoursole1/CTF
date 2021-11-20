@@ -13,6 +13,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.scoreboard.DisplaySlot
+import kotlin.math.roundToInt
 
 object Start : CommandExecutor {
     var id: Int = -1
@@ -32,33 +33,35 @@ object Start : CommandExecutor {
             GameData.world_nether!!.worldBorder.center = GameData.netherMainPoint!!
             GameData.world!!.worldBorder.center = spawn
             GameData.world!!.worldBorder.size = 200.0
-            for(player in Bukkit.getOnlinePlayers()){
+            GameData.scores.clear()
+            Bukkit.getScoreboardManager().mainScoreboard.getObjective(DisplaySlot.SIDEBAR)?.unregister()
+            for (player in Bukkit.getOnlinePlayers()) {
                 player.sendToWorld(GameData.world)
+                GameData.scores[player.uniqueId] = 0
+                player.isGlowing = false
+                player.sendMessage(
+                    "§bThe selected structure is: ${
+                        type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }
+                    }!"
+                )
+                player.health = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
+                player.activePotionEffects.clear()
+                player.inventory.clear()
             }
             //set the timer
-            GameData.timerMs = System.currentTimeMillis() + 24000L //15 minutes
+            GameData.timerMs = System.currentTimeMillis() + 15 * 60 * 1000L //15 minutes
 
             GameData.gameRunning = true
             id = Bukkit.getScheduler().scheduleSyncDelayedTask(
                 CTF.instance,
                 {
-                    GameData.scores.clear()
-                    Bukkit.getScoreboardManager().mainScoreboard.getObjective(DisplaySlot.SIDEBAR)?.unregister()
                     FlagDropper.dropFlag()
                     for (player in Bukkit.getOnlinePlayers()) {
-                        GameData.scores[player.uniqueId] = 0
-                        player.isGlowing = false
                         player.sendMessage(
-                            "§bThe selected structure is: ${
-                                type?.name?.split('_')?.joinToString(" ") { str -> str.replaceFirstChar { it.titlecaseChar() } }
-                            }!"
+                            "§bThe flag is dropping to (${GameData.dropLoc?.x?.roundToInt()}, ${GameData.dropLoc?.z?.roundToInt()})"
                         )
-                        player.sendMessage(
-                            "§bThe flag is dropping to (${GameData.dropLoc?.x}, ${GameData.dropLoc?.z})")
-                        player.health = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.value
-                        player.activePotionEffects.clear()
                     }
-                }, 24000L//15 minutes
+                }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 1000L //15 minutes
             )
 
             //on player death, tp player to world spawn if they are playing the game

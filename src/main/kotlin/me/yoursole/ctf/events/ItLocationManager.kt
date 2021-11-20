@@ -11,13 +11,11 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerPortalEvent
-import java.lang.Math.toRadians
-import kotlin.math.*
 
 object ItLocationManager : Listener {
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent) {
-        if (!GameData.gameRunning) return
+        if (GameData.it == null) return
         val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
         val min = (diff / 60).toInt()
         val sec = (diff % 60).toInt()
@@ -57,9 +55,7 @@ object ItLocationManager : Listener {
 
     @EventHandler
     fun onPlayerChangeDim(e: PlayerPortalEvent) {
-        if (!GameData.gameRunning) {
-            return
-        }
+        if (GameData.it == null) return
         if (e.player.world.environment == World.Environment.NETHER) {
             if (e.player.uniqueId === GameData.it!!.uniqueId) {
                 GameData.inNether = false

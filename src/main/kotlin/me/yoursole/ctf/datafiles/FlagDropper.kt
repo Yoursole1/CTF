@@ -15,9 +15,11 @@ import kotlin.random.Random
 
 object FlagDropper : Listener {
     fun dropFlag() {
-        val drop = GameData.gameSpawnPoint!!.clone().add(Random.nextDouble(-100.0, 100.0), Random.nextDouble(-100.0, 100.0), Random.nextDouble(-100.0, 100.0)).apply {
-            y = world.getHighestBlockYAt(this) + 2.0
-        }
+        val drop = GameData.gameSpawnPoint!!.clone()
+            .add(Random.nextDouble(-100.0, 100.0), Random.nextDouble(-100.0, 100.0), Random.nextDouble(-100.0, 100.0))
+            .apply {
+                y = world.getHighestBlockYAt(this) + 2.0
+            }
         val dropping = drop.clone().apply { y += 60.0 }
         drop.block.type = Material.BEACON
         drop.clone().add(-1.0, -1.0, -1.0).block.type = Material.NETHERITE_BLOCK

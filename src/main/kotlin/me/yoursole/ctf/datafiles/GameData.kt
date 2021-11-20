@@ -51,7 +51,7 @@ object GameData {
     var gameSpawnPoint: Location? = null
     var netherMainPoint: Location? = null
 
-    var gameRunning:Boolean = false
+    var gameRunning: Boolean = false
 
 
     init {

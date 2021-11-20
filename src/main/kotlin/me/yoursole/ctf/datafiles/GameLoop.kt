@@ -23,7 +23,7 @@ class GameLoop {
                     GameData.droppingPos!!.add(0.0, -1.0, 0.0)
                     GameData.droppingPos!!.block.type = Material.END_GATEWAY
                 }
-                if (GameData.gameRunning) {
+                if (GameData.it != null) {
                     GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 1 }
                     GameData.it!!.addPotionEffect(GameData.slowness)
                     GameData.it!!.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 40.0
@@ -33,10 +33,10 @@ class GameLoop {
                         player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 20.0
                         player.addPotionEffect(GameData.saturation)
                     } else {
-                        if (player.uniqueId !== GameData.it!!.uniqueId) {
+                        if (player.uniqueId !== GameData.it?.uniqueId) {
                             player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 20.0
                             player.addPotionEffect(GameData.haste)
-                            if (GameData.it!!.isInsideVehicle) {
+                            if (GameData.it?.isInsideVehicle == true) {
                                 player.addPotionEffect(GameData.dolphin)
                             }
                         }
@@ -56,7 +56,6 @@ class GameLoop {
                     val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
                     val min = (diff / 60).toInt()
                     val sec = (diff % 60).toInt()
-                    val flagHolder = if (!GameData.gameRunning) "Nobody" else GameData.it!!.displayName
                     val timeString = if (min > 0) min.toString() + "m " + sec + "s" else sec.toString() + "s"
                     for (player in Bukkit.getOnlinePlayers()) {
                         var arrow = "|"
@@ -67,12 +66,12 @@ class GameLoop {
                                 } else {
                                     "§1${player.getArrowFor(GameData.itLoc!!).char} (OVERWORLD)"
                                 }
-                                player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
+                                player.sendActionBar("§a${GameData.it!!.displayName} has the flag! §f§l$arrow §b$timeString")
                                 GameData.arrow = arrow
                             } else if (GameData.droppingPos != null) {
-                                player.sendActionBar("§eThe flag is dropping! §f§l${player.getArrowFor(GameData.droppingPos!!)} §b$timeString")
+                                player.sendActionBar("§eThe flag is dropping! §f§l${player.getArrowFor(GameData.droppingPos!!).char} §b$timeString")
                             } else {
-                                player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
+                                player.sendActionBar("§a${GameData.it?.displayName ?: "Nobody"} has the flag! §f§l$arrow §b$timeString")
                             }
                         }
                     }
@@ -87,8 +86,8 @@ class GameLoop {
                     }
                     for ((key, value) in GameData.scores) {
                         if (value > 0) {
-                            val p = Bukkit.getPlayer(key)
-                            val sc = o.getScore(p!!.displayName)
+                            val p = Bukkit.getPlayer(key) ?: continue
+                            val sc = o.getScore(p.displayName)
                             sc.score = value
                         }
                     }
