@@ -20,9 +20,11 @@ object Start : CommandExecutor {
             //
             WorldManager.generateNewWorlds()
             val type = GameData.structureTypes.random()
-            val spawn = GameData.world.getStructureNearSpawn(type)!!.apply { y = GameData.world!!.getHighestBlockYAt(this).toDouble() }.findSafeSpawnOrMake()
+            val spawn = GameData.world.getStructureNearSpawn(type)!!
+                .apply { y = GameData.world!!.getHighestBlockYAt(this).toDouble() }.findSafeSpawnOrMake()
             GameData.gameSpawnPoint = spawn
-            val netherSpawn = GameData.world_nether.getStructureNearSpawn(GameData.structureTypesNether.random())!!.findSafeSpawnOrMake()
+            val netherSpawn = GameData.world_nether.getStructureNearSpawn(GameData.structureTypesNether.random())!!
+                .findSafeSpawnOrMake()
             GameData.netherMainPoint = netherSpawn
             GameData.world_nether!!.worldBorder.size = 100.0
             GameData.world_nether!!.worldBorder.center = GameData.netherMainPoint!!

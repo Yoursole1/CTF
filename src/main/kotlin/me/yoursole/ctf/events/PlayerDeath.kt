@@ -14,11 +14,11 @@ object PlayerDeath : Listener {
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
         if (GameData.it == null) return
-        if (e.entity.player!!.uniqueId == GameData.it!!.uniqueId) {
-            e.entity.inventory.remove(Flag.flag)
-            e.entity.player!!.isGlowing = false
+        if (e.player.uniqueId == GameData.it!!.uniqueId) {
+            e.player.inventory.remove(Flag.flag)
+            e.player.isGlowing = false
             e.drops.clear()
-            val killer = Bukkit.getOnlinePlayers().find { e.deathMessage!!.contains(it.displayName) }
+            val killer = Bukkit.getOnlinePlayers().find { e.deathMessage!!.contains(it.displayName) } ?: e.player.killer
             if (killer != null) {
                 killer.inventory.addItem(Flag.flag)
                 killer.sendMessage("§aYou received the flag through murder")
@@ -32,13 +32,13 @@ object PlayerDeath : Listener {
                 }
                 GameData.it = killer
             } else {
-                val valids = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL && it != GameData.it }
-                if (valids.isNotEmpty()) {
-                    val chosen = valids.random()
+                val chosen = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL && it != GameData.it }
+                    .minByOrNull { it.location.distanceSquared(e.entity.location) }
+                if (chosen != null) {
                     chosen.inventory.addItem(Flag.flag)
                     chosen.absorptionAmount += 5
                     chosen.addPotionEffect(GameData.regen)
-                    chosen.sendMessage("§aYou got lucky and received the flag")
+                    chosen.sendMessage("§aYou were the closest to the player, you have received the flag.")
                     chosen.isGlowing = true
                     if (GameData.inNether && !GameData.netherHunters.contains(chosen)) {
                         GameData.inNether = false
@@ -50,11 +50,11 @@ object PlayerDeath : Listener {
                     }
                     GameData.it = chosen
                 } else {
-                    a = e.entity.player
+                    a = e.player
                 }
             }
         } else {
-            GameData.netherHunters.remove(e.entity.player)
+            GameData.netherHunters.remove(e.player)
         }
     }
 
