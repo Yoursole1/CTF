@@ -3,9 +3,12 @@ package me.yoursole.ctf.datafiles
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 object Utils {
     fun compareBreakable(first: ItemStack?, second: ItemStack?): Boolean {
@@ -81,9 +84,15 @@ object Utils {
         world.getBlockAt(clone().add(0.0, 1.0, -1.0)).type = Material.WARPED_SIGN
 
         world.getBlockAt(clone().add(0.0, 2.0, 0.0)).type = Material.BEDROCK
+        world.getBlockAt(clone().add(0.0, -1.0, 0.0)).type = Material.BEDROCK
         world.getBlockAt(clone()).type = Material.AIR
         world.getBlockAt(clone().add(0.0, 1.0, 0.0)).type = Material.AIR
-        world.getBlockAt(clone().add(0.0, -1.0, 0.0)).type = Material.BEDROCK
         return this
     }
+
+    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompound("CTFAttributes")
+
+    fun ItemStack.getCTFId() = getCTFAttributes().getString("itemId")
+
+    fun ItemStack.setCTFId(id: String) = getCTFAttributes().setString("itemId", id)
 }
