@@ -2,6 +2,7 @@ name: CapturetheFlag
 version: ${project.version}
 main: me.yoursole.ctf.CTF
 api-version: 1.17
+authors: [Yoursole,SlashSlayer]
 commands:
   start:
     description: Start Game
