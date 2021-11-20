@@ -30,6 +30,7 @@ object Stop : CommandExecutor {
                 player.sendMessage("§aThe winner is ${Bukkit.getPlayer(a)!!.displayName}!")
             }
             GameData.scores.clear()
+            GameData.gameRunning=false
         } else {
             sender.sendMessage("§cThe game is not running")
         }

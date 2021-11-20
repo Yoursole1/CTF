@@ -41,6 +41,7 @@ object Start : CommandExecutor {
             //set the timer
             GameData.timerMs = System.currentTimeMillis() + 24000L //15 minutes
 
+            GameData.gameRunning=true
 
             scheduler = Bukkit.getServer().scheduler
             id = scheduler.scheduleSyncDelayedTask(

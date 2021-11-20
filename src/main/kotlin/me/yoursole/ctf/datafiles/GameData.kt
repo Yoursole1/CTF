@@ -49,6 +49,9 @@ object GameData {
     var gameSpawnPoint: Location? = null
     var netherMainPoint: Location? = null
 
+    var gameRunning:Boolean = false
+
+
     init {
         try {
             customItems["flag"] = Flag.flag
