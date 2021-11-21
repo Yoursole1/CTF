@@ -27,7 +27,7 @@ object MachineGunBow : Listener {
               player.inventory.forEach {
                   if (it != null && it.itemMeta is Damageable && it.getCTFId() == "machinegunbow") {
                       it.editMeta(Damageable::class.java) {
-                          it.damage -= 1
+                          it.damage -= 5
                       }
                   }
               }

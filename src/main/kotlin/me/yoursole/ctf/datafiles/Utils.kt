@@ -37,7 +37,7 @@ object Utils {
     }
 
     fun Player.doTelekinesis(vararg stack: ItemStack) {
-        val items = inventory.addItem(*stack)
+        val items = inventory.addItem(*stack.onEach { it.getCTFId() })
         if (items.isNotEmpty()) {
             for (item in items.values) {
                 val drop = world.dropItemNaturally(location, item)

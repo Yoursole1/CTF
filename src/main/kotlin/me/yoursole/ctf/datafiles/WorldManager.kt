@@ -42,6 +42,8 @@ object WorldManager : Listener {
             generatorSettings("2;0;1;")
             seed(Random.nextLong(1L..100000L))
         }.createWorld()
+        GameData.world!!.setGameRule(GameRule.KEEP_INVENTORY, true)
+        GameData.world_nether!!.setGameRule(GameRule.KEEP_INVENTORY, true)
         //worlds should be generated
     }
 
