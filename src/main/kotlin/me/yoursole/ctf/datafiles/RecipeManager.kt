@@ -3,17 +3,48 @@ package me.yoursole.ctf.datafiles
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.Tag
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.Listener
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.ShapelessRecipe
+import org.bukkit.inventory.*
+import org.bukkit.material.MaterialData
 
 object RecipeManager : Listener {
     init {
         createKelpPaper()
         createSharpnessBook()
         createUnbreakingBook()
+        createSaddle()
+        smeltableLeather()
+        woolToString()
+    }
+
+    private fun woolToString() {
+        val key = NamespacedKey.fromString("ctf:wooltostring")!!
+        val recipe = ShapelessRecipe(key, ItemStack(Material.STRING, 4))
+        recipe.addIngredient(RecipeChoice.MaterialChoice(Tag.WOOL))
+        recipe.group = "ctf:wooltostring"
+        Bukkit.addRecipe(recipe)
+        GameData.recipeKeys["wooltostring"] = key
+    }
+
+    private fun smeltableLeather() {
+        val key = NamespacedKey.fromString("ctf:rottenleather")!!
+        val recipe = FurnaceRecipe(key, ItemStack(Material.LEATHER), Material.ROTTEN_FLESH, 0.1f, 200)
+        Bukkit.addRecipe(recipe)
+        GameData.recipeKeys["rottenleather"] = key
+    }
+
+    private fun createSaddle() {
+        val key = NamespacedKey.fromString("ctf:saddle")!!
+        val recipe = ShapedRecipe(key, ItemStack(Material.SADDLE))
+        recipe.shape("   ", "SLS", "LIL")
+        recipe.setIngredient('S', Material.STRING)
+        recipe.setIngredient('L', Material.LEATHER)
+        recipe.setIngredient('I', Material.IRON_INGOT)
+        recipe.group = "ctf:saddle"
+        Bukkit.addRecipe(recipe)
+        GameData.recipeKeys["saddle"] = key
     }
 
     private fun createKelpPaper() {

@@ -4,6 +4,7 @@ import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.items.CheapApple
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.Tag
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent
@@ -22,7 +23,7 @@ object CraftEvent : Listener {
         if (event.recipe == null) {
             val matrix: Array<out ItemStack?> = event.inventory.matrix
             if (matrix.all {
-                    it == null || it.type.key.key.endsWith("_leaves")
+                    it == null || Tag.LEAVES.isTagged(it.type)
                 }) {
                 val leaves: Int = matrix.filterNotNull().sumOf { it.amount }
                 if (leaves > 0 && leaves % 8 == 0) {
