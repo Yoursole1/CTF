@@ -27,7 +27,7 @@ object MachineGunBow : Listener {
               player.inventory.forEach {
                   if (it != null && it.itemMeta is Damageable && it.getCTFId() == "machinegunbow") {
                       it.editMeta(Damageable::class.java) {
-                          it.damage -= 5
+                          it.damage -= 10
                       }
                   }
               }
@@ -42,9 +42,10 @@ object MachineGunBow : Listener {
             if ((event.item?.itemMeta as Damageable).damage < Material.BOW.maxDurability) {
                 event.player.launchProjectile(Arrow::class.java).apply {
                     pickupStatus = AbstractArrow.PickupStatus.DISALLOWED
+                    damage = 0.1
                 }
                 event.item?.editMeta(Damageable::class.java) {
-                    it.damage += 10
+                    it.damage += 20
                 }
             }
         }
@@ -59,7 +60,8 @@ object MachineGunBow : Listener {
                     "§6Item Ability: Firepower",
                     "§fHolding right click fires x arrows per second",
                     "§fEach arrow decreases the durability by x.",
-                    "§fRegain x durability every second."
+                    "§fRegain x durability every second.",
+                    "§fArrows deal x times less damage."
                 )
                 addEnchant(Enchantment.ARROW_INFINITE, 1, false)
                 addEnchant(Enchantment.DURABILITY, 10, true)
