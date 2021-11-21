@@ -18,34 +18,47 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.meta.Damageable
+import java.util.*
 
 object MachineGunBow : Listener {
 
+    private var ticks = 0
+    private val shotInTick = hashMapOf<UUID, Int>()
+    private const val regenPerSecond = 18
+    private const val damagePerUse = 20
+
     init {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(CTF.instance, {
-          for (player in Bukkit.getOnlinePlayers()) {
-              player.inventory.forEach {
-                  if (it != null && it.itemMeta is Damageable && it.getCTFId() == "machinegunbow") {
-                      it.editMeta(Damageable::class.java) {
-                          it.damage -= 10
-                      }
-                  }
-              }
-          }
-        }, 0L, 20L)
+            ticks++
+            shotInTick.clear()
+            if (ticks % 20 == 0) {
+                for (player in Bukkit.getOnlinePlayers()) {
+                    player.inventory.forEach {
+                        if (it != null && it.itemMeta is Damageable && it.getCTFId() == "machinegunbow") {
+                            it.editMeta(Damageable::class.java) {
+                                it.damage -= regenPerSecond
+                            }
+                        }
+                    }
+                }
+                ticks = 0
+            }
+        }, 0L, 1L)
     }
 
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         if (event.item?.itemMeta is Damageable && event.item?.getCTFId() == "machinegunbow") {
             event.isCancelled = true
-            if ((event.item?.itemMeta as Damageable).damage < Material.BOW.maxDurability) {
+            val shot = shotInTick.getOrPut(event.player.uniqueId) { 0 }
+            if (shot < 2 && (event.item?.itemMeta as Damageable).damage < Material.BOW.maxDurability + damagePerUse) {
+                shotInTick.compute(event.player.uniqueId) { _, i -> (i ?: 0).inc() }
                 event.player.launchProjectile(Arrow::class.java).apply {
                     pickupStatus = AbstractArrow.PickupStatus.DISALLOWED
-                    damage = 0.1
+                    damage /= 6
                 }
                 event.item?.editMeta(Damageable::class.java) {
-                    it.damage += 20
+                    it.damage += damagePerUse
                 }
             }
         }
