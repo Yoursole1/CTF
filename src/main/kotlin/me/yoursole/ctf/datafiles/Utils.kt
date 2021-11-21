@@ -96,7 +96,8 @@ object Utils {
 
     fun ItemStack.setCTFId(id: String) = getCTFAttributes().setString("itemId", id)
 
-    fun NBTTagCompound.getCompoundOrCreate(key: String): NBTTagCompound = this.x.getOrPut(key) { NBTTagCompound() } as NBTTagCompound
+    fun NBTTagCompound.getCompoundOrCreate(key: String): NBTTagCompound =
+        this.x.getOrPut(key) { NBTTagCompound() } as NBTTagCompound
 
     fun Player.getArrowFor(loc: Location): Arrows {
         val a = loc.x - this.location.x

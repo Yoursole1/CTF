@@ -1,12 +1,10 @@
 package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
-import me.yoursole.ctf.datafiles.Utils
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.Sound
 import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
@@ -20,7 +18,6 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.inventory.ShapedRecipe
-import java.util.*
 
 object PyromancersCharm : Listener {
     val item: CraftItemStack by lazy {

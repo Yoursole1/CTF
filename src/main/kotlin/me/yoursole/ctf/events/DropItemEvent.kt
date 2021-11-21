@@ -1,7 +1,6 @@
 package me.yoursole.ctf.events
 
 import me.yoursole.ctf.datafiles.Utils.getCTFId
-import me.yoursole.ctf.datafiles.items.Flag
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent

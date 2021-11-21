@@ -29,7 +29,7 @@ class GameLoop {
                     GameData.it!!.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 40.0
                 }
                 for (player in Bukkit.getOnlinePlayers()) {
-                    if (GameData.it==null) {
+                    if (GameData.it == null) {
                         player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 20.0
                         player.addPotionEffect(GameData.saturation)
                     } else {

@@ -13,13 +13,17 @@ import org.bukkit.event.player.PlayerRespawnEvent
 object PlayerDeath : Listener {
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
-        if (GameData.it==null) return
+        if (GameData.it == null) return
         if (e.player.uniqueId == GameData.it!!.uniqueId) {
             e.player.inventory.remove(Flag.flag)
             e.player.isGlowing = false
             e.drops.clear()
             val killer = e.player.killer ?: Bukkit.getOnlinePlayers()
-                .find { it.gameMode == GameMode.SURVIVAL && it.uniqueId != GameData.it?.uniqueId && e.deathMessage!!.contains(it.displayName) }
+                .find {
+                    it.gameMode == GameMode.SURVIVAL && it.uniqueId != GameData.it?.uniqueId && e.deathMessage!!.contains(
+                        it.displayName
+                    )
+                }
             if (killer != null && killer.uniqueId != e.player.uniqueId) {
                 killer.inventory.addItem(Flag.flag)
                 killer.sendMessage("§aYou received the flag through murder")

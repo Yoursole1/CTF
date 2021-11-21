@@ -2,7 +2,6 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.GameData
-import me.yoursole.ctf.datafiles.Utils.getCTFAttributes
 import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit

@@ -7,7 +7,6 @@ import org.bukkit.Tag
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.Listener
 import org.bukkit.inventory.*
-import org.bukkit.material.MaterialData
 
 object RecipeManager : Listener {
     init {
@@ -59,7 +58,9 @@ object RecipeManager : Listener {
 
     private fun createSharpnessBook() {
         val key = NamespacedKey.fromString("ctf:sharpnessbook")!!
-        val recipe = ShapelessRecipe(key, ItemStack(Material.ENCHANTED_BOOK).apply { addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1) })
+        val recipe = ShapelessRecipe(
+            key,
+            ItemStack(Material.ENCHANTED_BOOK).apply { addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1) })
         recipe.addIngredient(Material.DIAMOND)
         recipe.addIngredient(Material.BOOK)
         recipe.group = "ctf:sharpnessbook"
@@ -69,7 +70,9 @@ object RecipeManager : Listener {
 
     private fun createUnbreakingBook() {
         val key = NamespacedKey.fromString("ctf:unbreakingbook")!!
-        val recipe = ShapelessRecipe(key, ItemStack(Material.ENCHANTED_BOOK).apply { addUnsafeEnchantment(Enchantment.DURABILITY, 1) })
+        val recipe = ShapelessRecipe(
+            key,
+            ItemStack(Material.ENCHANTED_BOOK).apply { addUnsafeEnchantment(Enchantment.DURABILITY, 1) })
         recipe.addIngredient(Material.IRON_INGOT)
         recipe.addIngredient(Material.BOOK)
         recipe.group = "ctf:unbreakingbook"
