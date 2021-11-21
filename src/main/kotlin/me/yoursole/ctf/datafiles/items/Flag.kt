@@ -18,8 +18,8 @@ object Flag {
                 isUnbreakable = true
                 setCustomModelData(1)
                 addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE)
-                setCTFId("flag")
             }
+            setCTFId("flag")
         }
     }
 }

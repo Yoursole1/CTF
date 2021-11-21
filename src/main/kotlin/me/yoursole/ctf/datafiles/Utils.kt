@@ -36,8 +36,8 @@ object Utils {
         return similar
     }
 
-    fun Player.doTelekinesis(vararg stack: ItemStack) {
-        val items = inventory.addItem(*stack.onEach { it.getCTFId() })
+    fun Player.doTelekinesis(stack: ItemStack) {
+        val items = inventory.addItem(CraftItemStack.asCraftCopy(stack).apply { getCTFId() })
         if (items.isNotEmpty()) {
             for (item in items.values) {
                 val drop = world.dropItemNaturally(location, item)
