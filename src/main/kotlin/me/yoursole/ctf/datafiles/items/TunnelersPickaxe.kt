@@ -25,7 +25,7 @@ object TunnelersPickaxe : Listener {
         val block = event.block
         val face = player.eyeLocation.direction
         if (Utils.compareBreakable(item, player.inventory.itemInMainHand)) {
-            val distance = if (!GameData.gameRunning) 3 else if (player.uniqueId === GameData.it!!.uniqueId) 2 else 5
+            val distance = if (GameData.it==null) 3 else if (player.uniqueId === GameData.it!!.uniqueId) 2 else 5
             for (i in 1 until distance) {
                 val candidate = player.world.getBlockAt(
                     block.location.add(
