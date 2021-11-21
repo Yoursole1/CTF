@@ -5,10 +5,7 @@ import me.yoursole.ctf.datafiles.FlagDropper
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.GameLoop
 import me.yoursole.ctf.datafiles.WorldManager
-import me.yoursole.ctf.datafiles.items.GoblinsSword
-import me.yoursole.ctf.datafiles.items.HermesBoots
-import me.yoursole.ctf.datafiles.items.ThorsAxe
-import me.yoursole.ctf.datafiles.items.TunnelersPickaxe
+import me.yoursole.ctf.datafiles.items.*
 import me.yoursole.ctf.events.*
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -46,6 +43,7 @@ class CTF : JavaPlugin() {
         server.pluginManager.registerEvents(ChunkLoad, this)
         server.pluginManager.registerEvents(EntityDeath, this)
         server.pluginManager.registerEvents(FlagDropper, this)
+        server.pluginManager.registerEvents(PyromancersCharm, this)
         getCommand("start")!!.setExecutor(Start)
         getCommand("stop")!!.setExecutor(Stop)
         getCommand("scores")!!.setExecutor(Scores)
