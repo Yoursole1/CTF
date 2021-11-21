@@ -10,6 +10,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.Arrow
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -39,9 +40,11 @@ object MachineGunBow : Listener {
         if (event.item?.itemMeta is Damageable && event.item?.getCTFId() == "machinegunbow") {
             event.isCancelled = true
             if ((event.item?.itemMeta as Damageable).damage < Material.BOW.maxDurability) {
-                event.player.launchProjectile(Arrow::class.java)
+                event.player.launchProjectile(Arrow::class.java).apply {
+                    pickupStatus = AbstractArrow.PickupStatus.DISALLOWED
+                }
                 event.item?.editMeta(Damageable::class.java) {
-                    it.damage += 2
+                    it.damage += 10
                 }
             }
         }

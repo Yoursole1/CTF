@@ -55,7 +55,7 @@ object PyromancersCharm : Listener {
         if (event.damager is Player && event.entity is LivingEntity && event.cause == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             val damager = event.damager as Player
             val target = event.entity as LivingEntity
-            if (damager.inventory.any { it.isSimilar(item) }) {
+            if (damager.inventory.any { item.isSimilar(it) }) {
                 target.fireTicks = 300
             }
         }
