@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 object ItDamagePlayer : Listener {
     @EventHandler
     fun onPlayerDamage(e: EntityDamageByEntityEvent) {
-        if (GameData.gameRunning) {
+        if (GameData.it!=null) {
             if (e.damager is Player && e.damager.uniqueId === GameData.it!!.uniqueId) {
                 val player = e.damager as Player
                 if (player.absorptionAmount < 5) {
