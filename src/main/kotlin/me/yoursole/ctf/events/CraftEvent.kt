@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.inventory.PrepareAnvilEvent
@@ -57,5 +58,10 @@ object CraftEvent : Listener {
             }
         }
         event.inventory.repairCost = (0.75 * event.inventory.repairCost).roundToInt()
+    }
+
+    @EventHandler
+    fun onEnchant(event: PrepareItemEnchantEvent) {
+        event.offers.forEach { it.cost = (it.cost * 0.75).roundToInt() }
     }
 }
