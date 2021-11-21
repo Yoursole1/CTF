@@ -1,10 +1,7 @@
 package me.yoursole.ctf
 
 import me.yoursole.ctf.commands.*
-import me.yoursole.ctf.datafiles.FlagDropper
-import me.yoursole.ctf.datafiles.GameData
-import me.yoursole.ctf.datafiles.GameLoop
-import me.yoursole.ctf.datafiles.WorldManager
+import me.yoursole.ctf.datafiles.*
 import me.yoursole.ctf.datafiles.items.*
 import me.yoursole.ctf.events.*
 import org.bukkit.Bukkit
@@ -44,6 +41,7 @@ class CTF : JavaPlugin() {
         server.pluginManager.registerEvents(EntityDeath, this)
         server.pluginManager.registerEvents(FlagDropper, this)
         server.pluginManager.registerEvents(PyromancersCharm, this)
+        server.pluginManager.registerEvents(RecipeManager, this)
         getCommand("start")!!.setExecutor(Start)
         getCommand("stop")!!.setExecutor(Stop)
         getCommand("scores")!!.setExecutor(Scores)
