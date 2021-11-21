@@ -61,7 +61,7 @@ object Start : CommandExecutor {
                             "§bThe flag is dropping to (${GameData.dropLoc?.x?.roundToInt()}, ${GameData.dropLoc?.z?.roundToInt()})"
                         )
                     }
-                }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 1000L //15 minutes
+                }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 20L //15 minutes
             )
 
             //on player death, tp player to world spawn if they are playing the game
