@@ -40,6 +40,7 @@ object GoblinsSword : Listener {
                     "§fGrants a 50% chance to double all mob drops."
                 )
             }
+            setCTFId("goblinssword")
             val key = NamespacedKey.fromString("ctf:goblinssword")!!
             val recipe = ShapedRecipe(key, this)
             recipe.shape(" G ", " I ", " B ")
@@ -48,7 +49,6 @@ object GoblinsSword : Listener {
             recipe.setIngredient('B', Material.BONE)
             recipe.group = "ctf:goblinssword"
             Bukkit.addRecipe(recipe)
-            setCTFId("goblinssword")
             GameData.recipeKeys["goblinssword"] = key
         }
     }

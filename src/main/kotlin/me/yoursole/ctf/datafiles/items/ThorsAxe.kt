@@ -50,6 +50,7 @@ object ThorsAxe : Listener {
                 )
                 addEnchantment(Enchantment.DURABILITY, 2)
             }
+            setCTFId("thorsaxe")
             val key = NamespacedKey.fromString("ctf:thorsaxe")!!
             val recipe = ShapedRecipe(key, this)
             recipe.shape("OI ", "IB ", " B ")
@@ -58,7 +59,6 @@ object ThorsAxe : Listener {
             recipe.setIngredient('B', Material.BONE)
             recipe.group = "ctf:thorsaxe"
             Bukkit.addRecipe(recipe)
-            setCTFId("thorsaxe")
             GameData.recipeKeys["thorsaxe"] = key
         }
     }

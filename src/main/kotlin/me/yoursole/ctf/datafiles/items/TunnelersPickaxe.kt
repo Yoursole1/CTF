@@ -56,6 +56,7 @@ object TunnelersPickaxe : Listener {
                 isUnbreakable = true
                 addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
             }
+            setCTFId("tunnelerspickaxe")
             val key = NamespacedKey.fromString("ctf:tunnelerspickaxe")!!
             val recipe = ShapedRecipe(key, this)
             recipe.shape("IGI", " S ", " S ")
@@ -64,7 +65,6 @@ object TunnelersPickaxe : Listener {
             recipe.setIngredient('S', Material.STICK)
             recipe.group = "ctf:tunnelerspickaxe"
             Bukkit.addRecipe(recipe)
-            setCTFId("tunnelerspickaxe")
             GameData.recipeKeys["tunnelerspickaxe"] = key
         }
     }

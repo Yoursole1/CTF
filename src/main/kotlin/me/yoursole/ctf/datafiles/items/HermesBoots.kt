@@ -56,6 +56,7 @@ object HermesBoots : Listener {
                     )
                 )
             }
+            setCTFId("hermes")
             val key = NamespacedKey.fromString("ctf:hermes")!!
             val recipe = ShapedRecipe(key, this)
             recipe.shape("   ", "F F", "FDF")
@@ -63,7 +64,6 @@ object HermesBoots : Listener {
             recipe.setIngredient('D', Material.DIAMOND)
             recipe.group = "ctf:hermes"
             Bukkit.addRecipe(recipe)
-            setCTFId("hermes")
             GameData.recipeKeys["hermes"] = key
         }
     }
