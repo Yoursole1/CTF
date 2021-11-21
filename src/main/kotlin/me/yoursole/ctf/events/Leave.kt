@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerQuitEvent
 object Leave : Listener {
     @EventHandler
     fun onPlayerLeave(e: PlayerQuitEvent) {
-        GameData.scores.remove(e.player.uniqueId)
 
         if(e.player.uniqueId == GameData.it?.uniqueId){
+            e.player.inventory.remove(Flag.flag)
             val chosen = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL && it != GameData.it }
                 .minByOrNull { it.location.distanceSquared(e.player.location) }
             if (chosen != null) {
