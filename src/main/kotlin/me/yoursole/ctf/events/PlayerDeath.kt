@@ -19,8 +19,8 @@ object PlayerDeath : Listener {
             e.player.isGlowing = false
             e.drops.clear()
             val killer = e.player.killer ?: Bukkit.getOnlinePlayers()
-                .find { it.gameMode == GameMode.SURVIVAL && it != GameData.it && e.deathMessage!!.contains(it.displayName) }
-            if (killer != null) {
+                .find { it.gameMode == GameMode.SURVIVAL && it.uniqueId != GameData.it?.uniqueId && e.deathMessage!!.contains(it.displayName) }
+            if (killer != null && killer.uniqueId != e.player.uniqueId) {
                 killer.inventory.addItem(Flag.flag)
                 killer.sendMessage("§aYou received the flag through murder")
                 killer.absorptionAmount += 5
