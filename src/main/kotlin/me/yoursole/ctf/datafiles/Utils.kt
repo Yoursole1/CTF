@@ -53,8 +53,8 @@ object Utils {
         val blockAbove = world.getBlockAt(clone().add(0.0, 1.0, 0.0))
         val blockBelow = world.getBlockAt(clone().add(0.0, -1.0, 0.0))
         if (!blockBelow.isSolid || block.isSolid || blockAbove.isSolid) return false
-        if (blockAbove.type == Material.LAVA || blockAbove.type == Material.FIRE) return false
-        if (block.type == Material.LAVA || block.type == Material.FIRE) return false
+        if (blockAbove.type == Material.LAVA || blockAbove.type == Material.FIRE || blockAbove.type == Material.WATER) return false
+        if (block.type == Material.LAVA || block.type == Material.FIRE || blockAbove.type == Material.WATER) return false
         return true
     }
 
