@@ -29,12 +29,14 @@ object BlockBreak : Listener {
                     stack.amount = Random.nextInt(2..3)
                 }
                 stack.amount = drop.amount
-                event.player.giveExp((experience.getOrDefault(smelted, 0f) * stack.amount).roundToInt())
+                event.player.giveExp((experience.getOrDefault(smelted, 0f) * stack.amount).roundToInt(), true)
                 drop = stack
             }
             event.player.doTelekinesis(drop)
         }
+        event.player.giveExp(event.expToDrop, true)
         event.isDropItems = false
+        event.expToDrop = 0
     }
 
     private val smeltable = hashMapOf(

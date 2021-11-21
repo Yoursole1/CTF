@@ -29,7 +29,7 @@ object EntityDeath : Listener {
         val entity = event.entity
         val killer = entity.killer
         if (killer == null || entity is Player) return
-        killer.giveExp(event.droppedExp)
+        killer.giveExp(event.droppedExp, true)
         for (drop in event.drops) killer.doTelekinesis(drop)
         event.drops.clear()
         event.droppedExp = 0
