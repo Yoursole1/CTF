@@ -1,5 +1,6 @@
 package me.yoursole.ctf.datafiles
 
+import net.minecraft.nbt.NBTTagCompound
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -89,11 +90,13 @@ object Utils {
         return this
     }
 
-    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompound("CTFAttributes")
+    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompoundOrCreate("CTFAttributes")
 
     fun ItemStack.getCTFId() = getCTFAttributes().getString("itemId")
 
     fun ItemStack.setCTFId(id: String) = getCTFAttributes().setString("itemId", id)
+
+    fun NBTTagCompound.getCompoundOrCreate(key: String): NBTTagCompound = this.x.getOrPut(key) { NBTTagCompound() } as NBTTagCompound
 
     fun Player.getArrowFor(loc: Location): Arrows {
         val a = loc.x - this.location.x
