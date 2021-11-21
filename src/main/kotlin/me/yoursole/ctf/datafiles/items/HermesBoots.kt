@@ -76,7 +76,7 @@ object HermesBoots : Listener {
             if (Utils.compareBreakable(boots, item)) {
                 player.damage(1.0)
                 val meta = boots.itemMeta as Damageable
-                meta.damage = meta.damage + 1
+                meta.damage += 1
                 if (meta.damage > boots.type.maxDurability) {
                     player.inventory.boots = null
                 }

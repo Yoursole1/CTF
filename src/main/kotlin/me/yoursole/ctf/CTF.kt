@@ -42,6 +42,7 @@ class CTF : JavaPlugin() {
         server.pluginManager.registerEvents(FlagDropper, this)
         server.pluginManager.registerEvents(PyromancersCharm, this)
         server.pluginManager.registerEvents(RecipeManager, this)
+        server.pluginManager.registerEvents(MachineGunBow, this)
         getCommand("start")!!.setExecutor(Start)
         getCommand("stop")!!.setExecutor(Stop)
         getCommand("scores")!!.setExecutor(Scores)
