@@ -33,7 +33,7 @@ object PyromancersCharm : Listener {
                     "§fwill gain §cBlessing of the Pyromancer§r,",
                     "§flighting your enemies on fire!"
                 )
-                addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1)
+                addEnchant(Enchantment.FIRE_ASPECT, 1, true)
                 addItemFlags(ItemFlag.HIDE_ENCHANTS)
             }
             setCTFId("pyromancerscharm")

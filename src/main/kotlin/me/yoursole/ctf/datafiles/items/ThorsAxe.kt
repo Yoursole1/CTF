@@ -48,7 +48,7 @@ object ThorsAxe : Listener {
                     "§fSmite strikes the target with lightning, dealing 1 true damage.",
                     "§fTrue damage ignores all protection.",
                 )
-                addEnchantment(Enchantment.DURABILITY, 2)
+                addEnchant(Enchantment.DURABILITY, 2, false)
             }
             setCTFId("thorsaxe")
             val key = NamespacedKey.fromString("ctf:thorsaxe")!!
