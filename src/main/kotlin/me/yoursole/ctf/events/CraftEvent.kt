@@ -3,6 +3,7 @@ package me.yoursole.ctf.events
 import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.items.CheapApple
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -49,5 +50,10 @@ object CraftEvent : Listener {
 
     @EventHandler
     fun onAnvil(event: PrepareAnvilEvent) {
+        event.result?.apply {
+            itemMeta = itemMeta.apply {
+                setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName))
+            }
+        }
     }
 }
