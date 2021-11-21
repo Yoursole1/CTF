@@ -20,7 +20,7 @@ object GameData {
     val saturation = PotionEffectType.SATURATION.createEffect(60, 0).withParticles(false).withIcon(false)
     val dolphin = PotionEffectType.DOLPHINS_GRACE.createEffect(60, 1).withParticles(false)
     val nightVision = PotionEffectType.NIGHT_VISION.createEffect(2000, 68).withParticles(false).withIcon(false)
-    val slowness = PotionEffectType.SLOW.createEffect(60, 1).withParticles(false)
+    val slowness = PotionEffectType.SLOW.createEffect(60, 0).withParticles(false)
     val regen = PotionEffectType.REGENERATION.createEffect(60, 1).withParticles(false)
     var itLoc: Location? = null
     var inNether = false
