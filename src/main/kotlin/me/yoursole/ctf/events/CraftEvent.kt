@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent
 import org.bukkit.event.inventory.PrepareItemCraftEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import kotlin.math.roundToInt
 
 
 object CraftEvent : Listener {
@@ -55,5 +56,6 @@ object CraftEvent : Listener {
                 setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName))
             }
         }
+        event.inventory.repairCost = (0.75 * event.inventory.repairCost).roundToInt()
     }
 }
