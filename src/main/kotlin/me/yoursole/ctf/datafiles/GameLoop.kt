@@ -27,6 +27,9 @@ class GameLoop {
                     GameData.scores.compute(GameData.it!!.uniqueId) { _: UUID?, score: Int? -> (score ?: 0) + 1 }
                     GameData.it!!.addPotionEffect(GameData.slowness)
                     GameData.it!!.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = 40.0
+                    if (GameData.it!!.isInWater) {
+                        GameData.it!!.remainingAir -= 2
+                    }
                 }
                 for (player in Bukkit.getOnlinePlayers()) {
                     if (GameData.it == null) {
