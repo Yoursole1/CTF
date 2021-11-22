@@ -44,6 +44,8 @@ object WorldManager : Listener {
         }.createWorld()
         GameData.world!!.setGameRule(GameRule.KEEP_INVENTORY, true)
         GameData.world_nether!!.setGameRule(GameRule.KEEP_INVENTORY, true)
+        GameData.world!!.worldBorder.damageAmount = 696969.0
+        GameData.world_nether!!.worldBorder.damageAmount = 696969.0
         //worlds should be generated
     }
 
