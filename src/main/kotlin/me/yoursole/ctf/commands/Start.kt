@@ -14,6 +14,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.scoreboard.DisplaySlot
 import kotlin.math.roundToInt
+import kotlin.random.Random
 
 object Start : CommandExecutor {
     var id: Int = -1
@@ -55,7 +56,7 @@ object Start : CommandExecutor {
             id = Bukkit.getScheduler().scheduleSyncDelayedTask(
                 CTF.instance,
                 {
-                    FlagDropper.dropFlag()
+                    FlagDropper.dropFlag(GameData.world!!, GameData.gameSpawnPoint!!.blockX + Random.nextInt(-100, 100), GameData.gameSpawnPoint!!.blockZ + Random.nextInt(-100, 100), 100)
                     for (player in Bukkit.getOnlinePlayers()) {
                         player.sendMessage(
                             "§bThe flag is dropping to (${GameData.dropLoc?.x?.roundToInt()}, ${GameData.dropLoc?.z?.roundToInt()})"

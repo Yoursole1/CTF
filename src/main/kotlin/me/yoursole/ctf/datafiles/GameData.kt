@@ -18,9 +18,9 @@ object GameData {
     val recipeKeys = HashMap<String, NamespacedKey>()
     val haste = PotionEffectType.FAST_DIGGING.createEffect(60, 2).withParticles(false)
     val saturation = PotionEffectType.SATURATION.createEffect(60, 0).withParticles(false).withIcon(false)
-    val dolphin = PotionEffectType.DOLPHINS_GRACE.createEffect(60, 1).withParticles(false)
+    val dolphin = PotionEffectType.DOLPHINS_GRACE.createEffect(60, 3).withParticles(false)
     val nightVision = PotionEffectType.NIGHT_VISION.createEffect(2000, 68).withParticles(false).withIcon(false)
-    val slowness = PotionEffectType.SLOW.createEffect(60, 0).withParticles(false)
+    val slowness = PotionEffectType.SLOW.createEffect(60, 1).withParticles(false)
     val regen = PotionEffectType.REGENERATION.createEffect(60, 1).withParticles(false)
     var itLoc: Location? = null
     var inNether = false
