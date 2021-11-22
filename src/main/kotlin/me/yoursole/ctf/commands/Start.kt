@@ -56,7 +56,7 @@ object Start : CommandExecutor {
             id = Bukkit.getScheduler().scheduleSyncDelayedTask(
                 CTF.instance,
                 {
-                    FlagDropper.dropFlag(GameData.world!!, GameData.gameSpawnPoint!!.blockX + Random.nextInt(-100, 100), GameData.gameSpawnPoint!!.blockZ + Random.nextInt(-100, 100), 100)
+                    FlagDropper.dropFlag(GameData.world!!, GameData.gameSpawnPoint!!.blockX + Random.nextInt(-100, 100), GameData.gameSpawnPoint!!.blockZ + Random.nextInt(-100, 100), 75)
                 }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 20 //15 minutes
             )
 
