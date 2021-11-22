@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.BoundingBox
+import kotlin.math.roundToInt
 
 object FlagDropper : Listener {
     fun dropFlag(world: World, x: Int, z: Int, height: Int = 100) {
@@ -17,19 +18,24 @@ object FlagDropper : Listener {
         }
         val dropping = drop.clone().apply { y = (y + height).coerceAtMost(255.0) }
         drop.block.type = Material.BEACON
-        drop.clone().add(-1.0, -1.0, -1.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(-1.0, -1.0, 0.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(-1.0, -1.0, 1.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(0.0, -1.0, -1.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(0.0, -1.0, 0.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(0.0, -1.0, 1.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(1.0, -1.0, -1.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(1.0, -1.0, 0.0).block.type = Material.NETHERITE_BLOCK
-        drop.clone().add(1.0, -1.0, 1.0).block.type = Material.NETHERITE_BLOCK
+        drop.clone().add(-1.0, -1.0, -1.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(-1.0, -1.0, 0.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(-1.0, -1.0, 1.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(0.0, -1.0, -1.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(0.0, -1.0, 0.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(0.0, -1.0, 1.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(1.0, -1.0, -1.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(1.0, -1.0, 0.0).block.type = Material.EMERALD_BLOCK
+        drop.clone().add(1.0, -1.0, 1.0).block.type = Material.EMERALD_BLOCK
 
         dropping.block.type = Material.END_GATEWAY
         GameData.dropLoc = drop.apply { y += 1 }
         GameData.droppingPos = dropping
+        for (player in Bukkit.getOnlinePlayers()) {
+            player.sendMessage(
+                "§bThe flag is dropping to (${GameData.dropLoc?.x?.roundToInt()}, ${GameData.dropLoc?.z?.roundToInt()})"
+            )
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

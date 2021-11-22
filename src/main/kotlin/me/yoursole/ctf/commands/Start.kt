@@ -57,11 +57,6 @@ object Start : CommandExecutor {
                 CTF.instance,
                 {
                     FlagDropper.dropFlag(GameData.world!!, GameData.gameSpawnPoint!!.blockX + Random.nextInt(-100, 100), GameData.gameSpawnPoint!!.blockZ + Random.nextInt(-100, 100), 100)
-                    for (player in Bukkit.getOnlinePlayers()) {
-                        player.sendMessage(
-                            "§bThe flag is dropping to (${GameData.dropLoc?.x?.roundToInt()}, ${GameData.dropLoc?.z?.roundToInt()})"
-                        )
-                    }
                 }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 20 //15 minutes
             )
 

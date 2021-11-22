@@ -60,6 +60,11 @@ object PlayerDeath : Listener {
                         a = e.player
                     }
                 } else {
+                    GameData.it = null
+                    GameData.itLoc = null
+                    e.player.inventory.remove(Flag.flag)
+                    e.player.isGlowing = false
+                    e.drops.clear()
                     FlagDropper.dropFlag(GameData.world!!, e.player.location.blockX, e.player.location.blockZ, 30)
                 }
             }
