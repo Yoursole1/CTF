@@ -65,6 +65,11 @@ object PlayerDeath : Listener {
             }
         } else {
             GameData.netherHunters.remove(e.player)
+            if (e.player != GameData.it && e.player.killer?.uniqueId == GameData.it!!.uniqueId) {
+                GameData.scores.compute(GameData.it!!.uniqueId) { _, i ->
+                    (i ?: 0) + 10
+                }
+            }
         }
     }
 
