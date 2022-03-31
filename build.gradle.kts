@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.5.31"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    kotlin("jvm") version "1.6.20-RC2"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 repositories {
@@ -21,13 +21,13 @@ val shadowMe by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    implementation("io.papermc.paper:paper:1.17.1-R0.1-SNAPSHOT")
+    implementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    implementation("io.papermc.paper:paper-server:1.18.2-R0.1-SNAPSHOT")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     shadowMe("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     shadowMe("org.jetbrains.kotlin:kotlin-reflect")
-    shadowMe("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    shadowMe("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
 
 group = "me.yoursole"
@@ -41,9 +41,15 @@ tasks {
 
     withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "16"
-            freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+            jvmTarget = "17"
+            freeCompilerArgs =
+                listOf("-opt-in=kotlin.RequiresOptIn", "-Xjvm-default=all", "-Xrelease=8", "-Xbackend-threads=0")
         }
+        kotlinDaemonJvmArguments.set(
+            listOf(
+                "-Xmx2G",
+            )
+        )
     }
 
     named<Jar>("jar") {
@@ -66,5 +72,9 @@ tasks {
     build.get().dependsOn(named("copyPlugin"))
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_16
-java.targetCompatibility = JavaVersion.VERSION_16
+kotlin {
+    jvmToolchain {
+        check(this is JavaToolchainSpec)
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
