@@ -5,7 +5,7 @@ import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 

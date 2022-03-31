@@ -1,10 +1,7 @@
 package me.yoursole.ctf.datafiles
 
 import me.yoursole.ctf.datafiles.items.*
-import org.bukkit.Location
-import org.bukkit.NamespacedKey
-import org.bukkit.StructureType
-import org.bukkit.World
+import org.bukkit.*
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
@@ -48,8 +45,8 @@ object GameData {
         StructureType.RUINED_PORTAL
     )
     val structureTypesNether = setOf(StructureType.NETHER_FORTRESS, StructureType.BASTION_REMNANT)
-    var gameSpawnPoint: Location? = null
-    var netherMainPoint: Location? = null
+    var gameSpawnPoint: Location = Location(Bukkit.getWorld("world_game"),0.0, 0.0, 0.0)
+    var netherMainPoint: Location = Location(Bukkit.getWorld("world_nether_game"),0.0, 0.0, 0.0)
 
     var gameRunning: Boolean = false
 

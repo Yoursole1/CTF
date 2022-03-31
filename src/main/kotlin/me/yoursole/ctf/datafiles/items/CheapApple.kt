@@ -2,7 +2,7 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Material
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 

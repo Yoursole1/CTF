@@ -53,8 +53,13 @@ object ItLocationManager : Listener {
         player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
     }
 
-    @EventHandler
+    @EventHandler (ignoreCancelled = true)
     fun onPlayerChangeDim(e: PlayerPortalEvent) {
+        if (e.player.world.environment == World.Environment.NETHER) {
+            e.to = GameData.gameSpawnPoint
+        }else if (e.player.world.environment == World.Environment.NORMAL) {
+            e.to = GameData.netherMainPoint
+        }
         if (GameData.it == null) return
         if (e.player.world.environment == World.Environment.NETHER) {
             if (e.player.uniqueId === GameData.it!!.uniqueId) {
@@ -63,7 +68,7 @@ object ItLocationManager : Listener {
                 GameData.netherHunters.remove(e.player)
             }
             //player exits nether (ik its backwards)
-            e.to = GameData.gameSpawnPoint!!
+
         } else if (e.player.world.environment == World.Environment.NORMAL) {
             //player enters nether
             if (e.player.uniqueId === GameData.it!!.uniqueId) {
@@ -72,7 +77,9 @@ object ItLocationManager : Listener {
             } else {
                 GameData.netherHunters.add(e.player)
             }
-            e.to = GameData.netherMainPoint!!
+
+
+
         }
     }
 

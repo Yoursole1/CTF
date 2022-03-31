@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
@@ -90,11 +90,13 @@ object Utils {
         return this
     }
 
-    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompoundOrCreate("CTFAttributes")
+    //fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompoundOrCreate("CTFAttributes")
 
-    fun ItemStack.getCTFId() = getCTFAttributes().getString("itemId")
+    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.u().getCompoundOrCreate("CTFAttributes")
 
-    fun ItemStack.setCTFId(id: String) = getCTFAttributes().setString("itemId", id)
+    fun ItemStack.getCTFId() = getCTFAttributes().l("itemId") //getString
+
+    fun ItemStack.setCTFId(id: String) = getCTFAttributes().a("itemId", id) //setString
 
     fun NBTTagCompound.getCompoundOrCreate(key: String): NBTTagCompound =
         this.x.getOrPut(key) { NBTTagCompound() } as NBTTagCompound

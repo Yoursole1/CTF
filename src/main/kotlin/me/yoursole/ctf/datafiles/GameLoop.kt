@@ -46,7 +46,7 @@ class GameLoop {
                     }
                     player.addPotionEffect(GameData.nightVision)
                     var canFly = player.gameMode != GameMode.SURVIVAL && player.gameMode != GameMode.ADVENTURE
-                    for (armor in player.inventory.armorContents) {
+                    for (armor in player.inventory.armorContents!!) {
                         if (armor == null) continue
                         if (Utils.compareBreakable(armor, HermesBoots.item)) {
                             canFly = true

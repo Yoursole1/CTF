@@ -33,13 +33,11 @@ object WorldManager : Listener {
         GameData.world = WorldCreator(overworldName).apply {
             environment(World.Environment.NORMAL)
             type(WorldType.NORMAL)
-            generatorSettings("2;0;1;")
             seed(Random.nextLong(1L..100000L))
         }.createWorld()
         GameData.world_nether = WorldCreator(netherName).apply {
             environment(World.Environment.NETHER)
             type(WorldType.NORMAL)
-            generatorSettings("2;0;1;")
             seed(Random.nextLong(1L..100000L))
         }.createWorld()
         GameData.world!!.setGameRule(GameRule.KEEP_INVENTORY, true)

@@ -9,7 +9,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -72,10 +72,10 @@ object HermesBoots : Listener {
     fun onAttemptFly(event: PlayerToggleFlightEvent) {
         if (event.isFlying) {
             val player = event.player
-            val boots = event.player.inventory.armorContents[0]
+            val boots = event.player.inventory.armorContents?.get(0)
             if (Utils.compareBreakable(boots, item)) {
                 player.damage(1.0)
-                val meta = boots.itemMeta as Damageable
+                val meta = boots?.itemMeta as Damageable
                 meta.damage += 1
                 if (meta.damage > boots.type.maxDurability) {
                     player.inventory.boots = null

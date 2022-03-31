@@ -20,7 +20,7 @@ object CraftEvent : Listener {
     @EventHandler
     fun onPrepareCraft(event: PrepareItemCraftEvent) {
         if (event.recipe == null) {
-            val matrix: Array<out ItemStack?> = event.inventory.matrix
+            val matrix: Array<out ItemStack?> = event.inventory.matrix as Array<out ItemStack?>
             if (matrix.all {
                     it == null || Tag.LEAVES.isTagged(it.type)
                 }) {
