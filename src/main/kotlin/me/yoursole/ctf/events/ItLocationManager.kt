@@ -27,6 +27,25 @@ object ItLocationManager : Listener {
         }
         if (GameData.gameRunning && e.player.uniqueId == GameData.it!!.uniqueId && !GameData.inNether) {
             GameData.itLoc = e.player.location
+            for (p: Player in Bukkit.getOnlinePlayers()) {
+                var ar = "|"
+                if (GameData.it != null && GameData.it !== p) {
+                    var itLoc: Location? = GameData.itLoc!!.clone()
+                    if (GameData.netherHunters.contains(p) && GameData.inNether) {
+                        itLoc = (Bukkit.getPlayer(GameData.it!!.uniqueId))!!.location
+                    } else if (GameData.netherHunters.contains(p) && !GameData.inNether) {
+                        itLoc = GameData.netherBackupLocs[p]
+                    }
+                    ar = p.getArrowFor(itLoc!!).char.toString()
+                }
+                ar = if (GameData.inNether) {
+                    "§4${ar} (NETHER)"
+                } else {
+                    "§1${ar} (OVERWORLD)"
+                }
+                if (GameData.arrow == ar) return
+                p.sendActionBar("§a$flagHolder has the flag! §f§l$ar §b$timeString")
+            }
             return
         }
         if (e.player.uniqueId != GameData.it!!.uniqueId && e.player.world.getBlockAt(e.player.location).type == Material.NETHER_PORTAL) {
@@ -51,13 +70,15 @@ object ItLocationManager : Listener {
         }
         if (GameData.arrow == arrow) return
         player.sendActionBar("§a$flagHolder has the flag! §f§l$arrow §b$timeString")
+
+
     }
 
-    @EventHandler (ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerChangeDim(e: PlayerPortalEvent) {
         if (e.player.world.environment == World.Environment.NETHER) {
             e.to = GameData.gameSpawnPoint
-        }else if (e.player.world.environment == World.Environment.NORMAL) {
+        } else if (e.player.world.environment == World.Environment.NORMAL) {
             e.to = GameData.netherMainPoint
         }
         if (GameData.it == null) return
@@ -79,21 +100,6 @@ object ItLocationManager : Listener {
             }
 
 
-
         }
     }
-
-    private val arrows = arrayOf(
-        "←", "↑", "→", "↓", "↖", "↗", "↘", "↙"
-    )
-
-    /**
-     * May use later idk
-     **/
-    private val Player.inNether: Boolean
-        get() = if (uniqueId === GameData.it!!.uniqueId) {
-            GameData.inNether
-        } else {
-            GameData.netherHunters.contains(this)
-        }
 }

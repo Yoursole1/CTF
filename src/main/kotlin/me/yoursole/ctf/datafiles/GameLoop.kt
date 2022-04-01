@@ -55,30 +55,6 @@ class GameLoop {
                     player.allowFlight = canFly
                     if (!canFly) player.isFlying = false
                 }
-                if (GameData.timerMs != -1L) {
-                    val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
-                    val min = (diff / 60).toInt()
-                    val sec = (diff % 60).toInt()
-                    val timeString = if (min > 0) min.toString() + "m " + sec + "s" else sec.toString() + "s"
-                    for (player in Bukkit.getOnlinePlayers()) {
-                        var arrow = "|"
-                        if (GameData.gameRunning) {
-                            if (GameData.it != null && GameData.it !== player) {
-                                arrow = if (GameData.inNether) {
-                                    "§4${player.getArrowFor(GameData.itLoc!!).char} (NETHER)"
-                                } else {
-                                    "§1${player.getArrowFor(GameData.itLoc!!).char} (OVERWORLD)"
-                                }
-                                player.sendActionBar("§a${GameData.it!!.displayName} has the flag! §f§l$arrow §b$timeString")
-                                GameData.arrow = arrow
-                            } else if (GameData.droppingPos != null) {
-                                player.sendActionBar("§eThe flag is dropping! §f§l${player.getArrowFor(GameData.droppingPos!!).char} §b$timeString")
-                            } else {
-                                player.sendActionBar("§a${GameData.it?.displayName ?: "Nobody"} has the flag! §f§l$arrow §b$timeString")
-                            }
-                        }
-                    }
-                }
                 if (GameData.scores.isNotEmpty()) {
                     val sb = Bukkit.getScoreboardManager()
                     val s = sb.mainScoreboard

@@ -42,7 +42,8 @@ object GameData {
         StructureType.MINESHAFT,
         StructureType.PILLAGER_OUTPOST,
         //StructureType.WOODLAND_MANSION,
-        StructureType.RUINED_PORTAL
+        //StructureType.RUINED_PORTAL
+        StructureType.OCEAN_MONUMENT
     )
     val structureTypesNether = setOf(StructureType.NETHER_FORTRESS, StructureType.BASTION_REMNANT)
     var gameSpawnPoint: Location = Location(Bukkit.getWorld("world_game"),0.0, 0.0, 0.0)

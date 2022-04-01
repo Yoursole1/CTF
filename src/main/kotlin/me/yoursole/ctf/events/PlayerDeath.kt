@@ -15,6 +15,7 @@ object PlayerDeath : Listener {
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
         if (GameData.it == null) return
+
         if (e.player.uniqueId == GameData.it!!.uniqueId) {
             e.player.inventory.remove(Flag.flag)
             e.player.isGlowing = false
@@ -39,7 +40,7 @@ object PlayerDeath : Listener {
                 GameData.it = killer
             } else {
                 if (GameData.inNether) {
-                    val chosen = Bukkit.getOnlinePlayers().filter { it.gameMode == GameMode.SURVIVAL && it != GameData.it }
+                    val chosen = Bukkit.getOnlinePlayers().filter { it != GameData.it }
                         .minByOrNull { it.location.distanceSquared(e.entity.location) }
                     if (chosen != null) {
                         chosen.inventory.addItem(Flag.flag)
@@ -47,7 +48,7 @@ object PlayerDeath : Listener {
                         chosen.addPotionEffect(GameData.regen)
                         chosen.sendMessage("§aYou were the closest to the player, you have received the flag.")
                         chosen.isGlowing = true
-                        if (GameData.inNether && !GameData.netherHunters.contains(chosen)) {
+                        if (!GameData.netherHunters.contains(chosen)) {
                             GameData.inNether = false
                         }
                         for (playera in Bukkit.getOnlinePlayers()) {
