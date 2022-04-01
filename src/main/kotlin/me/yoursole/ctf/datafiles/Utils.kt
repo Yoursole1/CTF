@@ -37,6 +37,7 @@ object Utils {
     }
 
     fun Player.doTelekinesis(stack: ItemStack) {
+        if (stack.type == Material.AIR) return
         val items = inventory.addItem(CraftItemStack.asCraftCopy(stack).apply { getCTFId() })
         if (items.isNotEmpty()) {
             for (item in items.values) {
