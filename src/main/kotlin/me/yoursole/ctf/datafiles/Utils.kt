@@ -93,7 +93,7 @@ object Utils {
 
     //fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompoundOrCreate("CTFAttributes")
 
-    fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.u().getCompoundOrCreate("CTFAttributes")
+    fun ItemStack.getCTFAttributes() = ((this as CraftItemStack).handle ?: net.minecraft.world.item.ItemStack.b).u().getCompoundOrCreate("CTFAttributes")
 
     fun ItemStack.getCTFId() = getCTFAttributes().l("itemId") //getString
 

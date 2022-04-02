@@ -63,6 +63,7 @@ object GameData {
             customItems["scrapanvil"] = ScrapAnvil.item
             customItems["pyromancerscharm"] = PyromancersCharm.item
             customItems["machinegunbow"] = MachineGunBow.item
+            customItems["webshooter"] = WebShooter.item
         } catch (e: Throwable) {
             e.printStackTrace()
         }
