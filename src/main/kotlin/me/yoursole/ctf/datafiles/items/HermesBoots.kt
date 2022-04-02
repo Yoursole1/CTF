@@ -40,7 +40,7 @@ object HermesBoots : Listener {
                     AttributeModifier(
                         UUID.randomUUID(),
                         "Hermes' Speed",
-                        0.25,
+                        0.3,
                         AttributeModifier.Operation.ADD_SCALAR,
                         EquipmentSlot.FEET
                     )
@@ -50,7 +50,7 @@ object HermesBoots : Listener {
                     AttributeModifier(
                         UUID.randomUUID(),
                         "Hermes' Armor",
-                        1.0,
+                        1.25,
                         AttributeModifier.Operation.ADD_NUMBER,
                         EquipmentSlot.FEET
                     )
@@ -81,7 +81,7 @@ object HermesBoots : Listener {
                     player.inventory.boots = null
                 }
                 boots.itemMeta = meta
-                player.velocity = player.location.direction.multiply(1.2).setY(0.8)
+                player.velocity = player.location.direction.multiply(1.25).setY(0.81)
                 event.isCancelled = true
                 player.allowFlight = false
                 player.isFlying = false
