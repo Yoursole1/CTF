@@ -105,14 +105,12 @@ object OreFinder : Listener{
     }
 
     private fun glow(loc: Location, c:ChatColor, player: Player){
-        var livingS: Entity = loc.world.spawnEntity(loc, EntityType.SHULKER)
+        val livingS: Shulker = loc.world.spawnEntity(loc, EntityType.SHULKER) as Shulker
         livingS.isGlowing = true
         livingS.isInvulnerable = true
         livingS.isSilent = true
-
-        var e2 = (livingS as LivingEntity)
-        e2.setAI(false)
-        e2.isInvisible = false
+        livingS.setAI(false)
+        livingS.isInvisible = false
 
 
         if(this.spawnedShukers[player.uniqueId]==null){
@@ -123,16 +121,14 @@ object OreFinder : Listener{
 
 
     }
-    private var spawnedShukers: HashMap<UUID, ArrayList<Entity>> = HashMap()
+    private var spawnedShukers: HashMap<UUID, ArrayList<Shulker>> = HashMap()
 
     private fun unGlow(player: Player){
-        var shulks = this.spawnedShukers[player.uniqueId] ?: return
-        for(shulk in shulks){
-            (shulk as LivingEntity).isInvulnerable = false
-            (shulk as LivingEntity).damage(100000.0)
+        val shulks = this.spawnedShukers[player.uniqueId] ?: return
+        shulks.removeAll {
+            it.remove()
+            true
         }
-
-        this.spawnedShukers[player.uniqueId] = ArrayList()
     }
 
 
