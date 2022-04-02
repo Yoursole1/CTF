@@ -14,10 +14,11 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven("https://repo.codemc.io/repository/nms/")
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://oss.sonatype.org/content/groups/public/")
+    maven("https://repo.inventivetalent.org/repository/maven-snapshots/")
+    maven("https://jitpack.io/")
 }
 
 
@@ -31,6 +32,13 @@ dependencies {
     shadowMe("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     shadowMe("org.jetbrains.kotlin:kotlin-reflect")
     shadowMe("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+
+    implementation("org.inventivetalent:glowapi:1.5.3-SNAPSHOT")
+    implementation("org.inventivetalent.packetlistenerapi:api") {
+        version {
+            strictly("3.9.10-SNAPSHOT")
+        }
+    }
 }
 
 group = "me.yoursole"
@@ -42,11 +50,13 @@ bukkit {
     main = "me.yoursole.ctf.CTF"
     apiVersion = "1.18"
     authors = listOf("Yoursole", "My-Name-Is-Jeff")
+    depend = listOf("GlowAPI")
 }
 
 tasks {
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         filteringCharset = "UTF-8"
     }
 
