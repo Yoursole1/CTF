@@ -1,6 +1,7 @@
 package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
+import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -52,7 +53,7 @@ object PyromancersCharm : Listener {
         if (event.damager is Player && event.entity is LivingEntity && event.cause == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             val damager = event.damager as Player
             val target = event.entity as LivingEntity
-            if (damager.inventory.any { item.isSimilar(it) }) {
+            if (damager.inventory.any { item.getCTFId() == "pyromancerscharm" }) {
                 target.fireTicks = 300
             }
         }

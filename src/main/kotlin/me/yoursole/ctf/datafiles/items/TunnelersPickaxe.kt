@@ -3,6 +3,7 @@ package me.yoursole.ctf.datafiles.items
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
 import me.yoursole.ctf.datafiles.Utils.doTelekinesis
+import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -24,7 +25,7 @@ object TunnelersPickaxe : Listener {
         val player = event.player
         val block = event.block
         val face = player.eyeLocation.direction
-        if (Utils.compareBreakable(item, player.inventory.itemInMainHand)) {
+        if (player.inventory.itemInMainHand.getCTFId() == "tunnelerspickaxe") {
             val distance = if (GameData.it == null) 3 else if (player.uniqueId === GameData.it!!.uniqueId) 2 else 5
             for (i in 1 until distance) {
                 val candidate = player.world.getBlockAt(

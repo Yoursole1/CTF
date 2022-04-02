@@ -2,6 +2,7 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
+import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -25,7 +26,7 @@ object ThorsAxe : Listener {
         if (event.damager is Player && event.entity is LivingEntity && event.cause == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             val damager = event.damager as Player
             val target = event.entity as LivingEntity
-            if (Utils.compareBreakable(damager.inventory.itemInMainHand, item)) {
+            if (damager.inventory.itemInMainHand.getCTFId() == "thorsaxe") {
                 val h = hitMap.compute(damager.uniqueId) { _: UUID?, hits: Int? -> (hits ?: 0) + 1 }!!
                 if (h == 4) {
                     hitMap[damager.uniqueId] = 0

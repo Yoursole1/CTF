@@ -18,8 +18,8 @@ import kotlin.math.pow
 
 
 object OreFinder : Listener {
-    private val axeToOre: java.util.HashMap<Material?, List<Material>?> =
-        object : java.util.HashMap<Material?, List<Material>?>() {
+    private val axeToOre: HashMap<Material?, List<Material>?> =
+        object : HashMap<Material?, List<Material>?>() {
             init {
                 put(Material.WOODEN_PICKAXE, listOf(Material.COAL_ORE, Material.DEEPSLATE_COAL_ORE))
 

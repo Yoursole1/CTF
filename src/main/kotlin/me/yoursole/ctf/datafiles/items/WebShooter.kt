@@ -57,7 +57,7 @@ object WebShooter : Listener {
                 setDisplayName("§fWeb Shooter")
                 lore = listOf(
                     "§6Item Ability: Hang Tight!",
-                    "§fRight click to shoot a web,",
+                    "§fLeft click to spit out a web,",
                     "§fpulling you in that direction!",
                 )
                 addEnchant(Enchantment.DURABILITY, 10, true)

@@ -2,6 +2,7 @@ package me.yoursole.ctf.datafiles.items
 
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils
+import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -22,7 +23,7 @@ object GoblinsSword : Listener {
         val entity = event.entity
         val killer = entity.killer
         if (killer == null || entity is Player) return
-        if (Utils.compareBreakable(killer.inventory.itemInMainHand, item)) {
+        if (killer.inventory.itemInMainHand.getCTFId() == "goblinssword") {
             if (Random.nextInt(0..1) == 0) {
                 for (item in event.drops) {
                     item.amount = item.amount * 2
