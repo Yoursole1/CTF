@@ -25,7 +25,7 @@ object OreFinder : Listener {
 
                 put(Material.STONE_PICKAXE,
                     listOf(Material.IRON_ORE,
-                        Material.DEEPSLATE_COAL_ORE,
+                        Material.DEEPSLATE_IRON_ORE,
                         Material.COAL_ORE,
                         Material.DEEPSLATE_COAL_ORE,
                         Material.LAPIS_ORE,
