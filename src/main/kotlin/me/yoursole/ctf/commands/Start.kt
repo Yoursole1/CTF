@@ -13,7 +13,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.scoreboard.DisplaySlot
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
 object Start : CommandExecutor {
@@ -31,7 +30,7 @@ object Start : CommandExecutor {
                 .findSafeSpawnOrMake()
             GameData.netherMainPoint = netherSpawn
             GameData.world_nether!!.worldBorder.size = 100.0
-            GameData.world_nether!!.worldBorder.center = GameData.netherMainPoint!!
+            GameData.world_nether!!.worldBorder.center = GameData.netherMainPoint
             GameData.world!!.worldBorder.center = spawn
             GameData.world!!.worldBorder.size = 200.0
             GameData.scores.clear()
@@ -56,7 +55,10 @@ object Start : CommandExecutor {
             id = Bukkit.getScheduler().scheduleSyncDelayedTask(
                 CTF.instance,
                 {
-                    FlagDropper.dropFlag(GameData.world!!, GameData.gameSpawnPoint!!.blockX + Random.nextInt(-100, 100), GameData.gameSpawnPoint!!.blockZ + Random.nextInt(-100, 100), 75)
+                    FlagDropper.dropFlag(GameData.world!!,
+                        GameData.gameSpawnPoint.blockX + Random.nextInt(-100, 100),
+                        GameData.gameSpawnPoint.blockZ + Random.nextInt(-100, 100),
+                        75)
                 }, if (args.getOrNull(0) == "now") 1L else 15 * 60 * 20 //15 minutes
             )
 

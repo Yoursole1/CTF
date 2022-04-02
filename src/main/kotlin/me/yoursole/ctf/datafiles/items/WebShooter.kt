@@ -1,28 +1,22 @@
 package me.yoursole.ctf.datafiles.items
 
 import io.papermc.paper.event.player.PlayerArmSwingEvent
-import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.Utils.getCTFId
 import me.yoursole.ctf.datafiles.Utils.setCTFId
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftEntity
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftFallingBlock
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftSnowball
 import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.entity.*
+import org.bukkit.entity.Player
+import org.bukkit.entity.Snowball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.event.entity.ProjectileHitEvent
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.meta.Damageable
-import java.util.*
 
 object WebShooter : Listener {
     @EventHandler
@@ -32,7 +26,8 @@ object WebShooter : Listener {
         if (item.getCTFId() == "webshooter") {
             val snowball = player.launchProjectile(Snowball::class.java) as CraftSnowball
             snowball.customName = "WebShooter"
-            snowball.addPassenger(snowball.world.spawnFallingBlock(snowball.location, Material.COBWEB.createBlockData()).also { it.isInvulnerable = true })
+            snowball.addPassenger(snowball.world.spawnFallingBlock(snowball.location, Material.COBWEB.createBlockData())
+                .also { it.isInvulnerable = true })
             snowball.isInvulnerable = true
         }
     }

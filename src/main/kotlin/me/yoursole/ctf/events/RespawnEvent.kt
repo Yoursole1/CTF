@@ -9,6 +9,6 @@ object RespawnEvent : Listener {
     @EventHandler
     fun onPlayerRespawn(e: PlayerRespawnEvent) {
         if (!GameData.gameRunning) return
-        e.respawnLocation = GameData.gameSpawnPoint!!
+        e.respawnLocation = GameData.gameSpawnPoint
     }
 }

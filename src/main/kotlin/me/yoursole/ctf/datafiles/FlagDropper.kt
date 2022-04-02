@@ -57,7 +57,9 @@ object FlagDropper : Listener {
     @EventHandler
     fun enterPortal(event: PlayerMoveEvent) {
         if (GameData.droppingPos == null || GameData.it != null || event.player.gameMode != GameMode.SURVIVAL) return
-        if (GameData.droppingPos!!.distanceSquared(GameData.dropLoc!!) <= 9 && event.player.boundingBox.overlaps(BoundingBox.of(GameData.droppingPos!!.block))) {
+        if (GameData.droppingPos!!.distanceSquared(GameData.dropLoc!!) <= 9 && event.player.boundingBox.overlaps(
+                BoundingBox.of(GameData.droppingPos!!.block))
+        ) {
             GameData.droppingPos!!.block.type = Material.AIR
             GameData.droppingPos = null
             val drop = GameData.dropLoc!!.clone().apply { y -= 1 }

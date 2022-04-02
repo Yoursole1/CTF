@@ -46,8 +46,8 @@ object GameData {
         StructureType.OCEAN_MONUMENT
     )
     val structureTypesNether = setOf(StructureType.NETHER_FORTRESS, StructureType.BASTION_REMNANT)
-    var gameSpawnPoint: Location = Location(Bukkit.getWorld("world_game"),0.0, 0.0, 0.0)
-    var netherMainPoint: Location = Location(Bukkit.getWorld("world_nether_game"),0.0, 0.0, 0.0)
+    var gameSpawnPoint: Location = Location(Bukkit.getWorld("world_game"), 0.0, 0.0, 0.0)
+    var netherMainPoint: Location = Location(Bukkit.getWorld("world_nether_game"), 0.0, 0.0, 0.0)
 
     var gameRunning: Boolean = false
 

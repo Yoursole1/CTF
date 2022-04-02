@@ -1,7 +1,6 @@
 package me.yoursole.ctf.datafiles
 
 import me.yoursole.ctf.CTF
-import me.yoursole.ctf.datafiles.Utils.getArrowFor
 import me.yoursole.ctf.datafiles.items.HermesBoots
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
