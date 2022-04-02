@@ -1,10 +1,8 @@
 package me.yoursole.ctf.datafiles.items
 
+import me.yoursole.ctf.CTF
 import me.yoursole.ctf.datafiles.Point3D
-import org.bukkit.ChatColor
-import org.bukkit.Location
-import org.bukkit.Material
-import org.bukkit.World
+import org.bukkit.*
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.entity.Shulker
@@ -12,8 +10,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import java.util.*
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import kotlin.math.pow
 
 
@@ -113,9 +109,9 @@ object OreFinder : Listener {
 
                 this.glow(loc = blockLoc, c = c, player = e.player)
 
-                Executors.newSingleThreadScheduledExecutor().schedule({
+                Bukkit.getScheduler().scheduleSyncDelayedTask(CTF.instance, {
                     this.unGlow(player = e.player)
-                }, 3000, TimeUnit.MILLISECONDS)
+                }, 3000)
             }
         }
     }
