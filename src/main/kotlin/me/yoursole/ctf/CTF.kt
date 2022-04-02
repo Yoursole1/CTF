@@ -5,6 +5,7 @@ import me.yoursole.ctf.datafiles.*
 import me.yoursole.ctf.datafiles.items.*
 import me.yoursole.ctf.events.*
 import org.bukkit.Bukkit
+import org.bukkit.craftbukkit.v1_18_R2.CraftServer
 import org.bukkit.plugin.java.JavaPlugin
 
 class CTF : JavaPlugin() {
@@ -18,41 +19,47 @@ class CTF : JavaPlugin() {
     }
 
     override fun onEnable() {
-        server.pluginManager.registerEvents(WorldManager, this)
-        server.pluginManager.registerEvents(MoveItemEvent, this)
-        server.pluginManager.registerEvents(DropItemEvent, this)
-        server.pluginManager.registerEvents(PlayerDeath, this)
-        server.pluginManager.registerEvents(GetCompass, this)
-        server.pluginManager.registerEvents(PlaceFlagEvent, this)
-        server.pluginManager.registerEvents(Join, this)
-        server.pluginManager.registerEvents(Leave, this)
-        server.pluginManager.registerEvents(ChatEvent, this)
-        server.pluginManager.registerEvents(BlockBreak, this)
-        server.pluginManager.registerEvents(HermesBoots, this)
-        server.pluginManager.registerEvents(TunnelersPickaxe, this)
-        server.pluginManager.registerEvents(GoblinsSword, this)
-        server.pluginManager.registerEvents(ThorsAxe, this)
-        server.pluginManager.registerEvents(BuildLimit, this)
-        server.pluginManager.registerEvents(ItDamagePlayer, this)
-        server.pluginManager.registerEvents(CraftEvent, this)
-        server.pluginManager.registerEvents(ItLocationManager, this)
-        server.pluginManager.registerEvents(RespawnEvent, this)
-        server.pluginManager.registerEvents(ChunkLoad, this)
-        server.pluginManager.registerEvents(EntityDeath, this)
-        server.pluginManager.registerEvents(FlagDropper, this)
-        server.pluginManager.registerEvents(PyromancersCharm, this)
-        server.pluginManager.registerEvents(RecipeManager, this)
-        server.pluginManager.registerEvents(MachineGunBow, this)
-        server.pluginManager.registerEvents(WebShooter, this)
-        server.pluginManager.registerEvents(OreFinder, this)
-        getCommand("start")!!.setExecutor(Start)
-        getCommand("stop")!!.setExecutor(Stop)
-        getCommand("scores")!!.setExecutor(Scores)
-        getCommand("timer")!!.setExecutor(Timer)
-        getCommand("togglechat")!!.setExecutor(ToggleChat)
-        getCommand("customitem")!!.setExecutor(CustomItem)
-        getCommand("top")!!.setExecutor(Top)
-        getCommand("test")!!.setExecutor(Test)
+        listOf(
+            WorldManager,
+            MoveItemEvent,
+            DropItemEvent,
+            PlayerDeath,
+            GetCompass,
+            PlaceFlagEvent,
+            Join,
+            Leave,
+            ChatEvent,
+            BlockBreak,
+            HermesBoots,
+            TunnelersPickaxe,
+            GoblinsSword,
+            ThorsAxe,
+            BuildLimit,
+            ItDamagePlayer,
+            CraftEvent,
+            ItLocationManager,
+            RespawnEvent,
+            ChunkLoad,
+            EntityDeath,
+            FlagDropper,
+            PyromancersCharm,
+            RecipeManager,
+            MachineGunBow,
+            WebShooter,
+            OreFinder
+        ).forEach {
+            server.pluginManager.registerEvents(it, this)
+        }
+        val dispatcher = (server as CraftServer).server.vanillaCommandDispatcher.dispatcher
+        listOf(
+            ToggleChat,
+            Top,
+            CustomItem,
+            Timer,
+            Scores,
+            Start,
+            Stop
+        ).forEach { it.register(dispatcher) }
         GameLoop()
 
         for (player in Bukkit.getOnlinePlayers()) {

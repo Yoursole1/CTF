@@ -1,17 +1,25 @@
 package me.yoursole.ctf.commands
 
+import com.mojang.brigadier.CommandDispatcher
 import me.yoursole.ctf.datafiles.GameData
 import me.yoursole.ctf.datafiles.WorldManager
 import me.yoursole.ctf.datafiles.items.Flag
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands.literal
+import net.minecraft.network.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import java.util.*
 
-object Stop : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (GameData.gameRunning) {
+object Stop : BrigadierCommand {
+    override fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
+        dispatcher.register(literal("stop").requiresOp().executes { ctx ->
+            if (!GameData.gameRunning) {
+                ctx.source.sendFailure(TextComponent("Game is not running!"))
+                return@executes 0
+            }
             for (player in Bukkit.getOnlinePlayers()) {
                 player.inventory.remove(Flag.flag)
                 player.isGlowing = false
@@ -28,7 +36,7 @@ object Stop : CommandExecutor {
             GameData.it = null
             GameData.droppingPos = null
             GameData.dropLoc = null
-            sender.sendMessage("Game Stopped")
+            ctx.source.sendSuccess(TextComponent("Game Stopped!"), true)
             val a = GameData.scores.entries.maxByOrNull { it.value }?.key
             if (a != null) {
                 for (player in Bukkit.getOnlinePlayers()) {
@@ -37,9 +45,7 @@ object Stop : CommandExecutor {
             }
             GameData.scores.clear()
             GameData.gameRunning = false
-        } else {
-            sender.sendMessage("§cThe game is not running")
-        }
-        return true
+            1
+        })
     }
 }

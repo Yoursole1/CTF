@@ -1,15 +1,19 @@
 package me.yoursole.ctf.commands
 
+import com.mojang.brigadier.CommandDispatcher
+import com.mojang.brigadier.arguments.IntegerArgumentType
 import me.yoursole.ctf.datafiles.GameData
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands.*
 
-object Timer : CommandExecutor {
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (args.isEmpty()) return false
-        if (args[0].equals("clear", ignoreCase = true)) GameData.timerMs = -1L else GameData.timerMs =
-            System.currentTimeMillis() + args[0].toLong()
-        return true
+object Timer : BrigadierCommand {
+    override fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
+        dispatcher.register(literal("timer").requiresOp().then(argument("time", IntegerArgumentType.integer()).executes { ctx ->
+            GameData.timerMs = System.currentTimeMillis() + IntegerArgumentType.getInteger(ctx, "time")
+            1
+        }).then(literal("clear").executes { ctx ->
+            GameData.timerMs = -1L
+            1
+        }))
     }
 }

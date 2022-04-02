@@ -1,17 +1,24 @@
 package me.yoursole.ctf.commands
 
-import org.bukkit.Bukkit
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
+import com.mojang.brigadier.CommandDispatcher
+import net.minecraft.Util
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands.*
+import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.network.chat.ChatType
+import net.minecraft.network.chat.TextComponent
 
-object ToggleChat : CommandExecutor {
+object ToggleChat : BrigadierCommand {
     var chatMuted = false
-    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        chatMuted = !chatMuted
-        for (player in Bukkit.getOnlinePlayers()) {
-            player.sendMessage("§e${sender.name} ${(if (chatMuted) "muted" else "unmuted")} the chat!")
-        }
-        return true
+
+    override fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
+        dispatcher.register(
+            literal("togglechat").requiresOp().executes { ctx ->
+                chatMuted = !chatMuted
+                EntityArgument.getPlayers(ctx, "players").onEach {
+                    it.sendMessage(TextComponent("§e${ctx.source.displayName.contents} ${(if (chatMuted) "muted" else "unmuted")} the chat!"), ChatType.SYSTEM, Util.NIL_UUID)
+                }.size
+            }
+        )
     }
 }
