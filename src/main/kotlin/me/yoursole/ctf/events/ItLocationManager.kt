@@ -15,17 +15,21 @@ import org.bukkit.event.player.PlayerPortalEvent
 object ItLocationManager : Listener {
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent) {
-        if (GameData.it == null) return
+        val player = e.player
         val diff = (GameData.timerMs - System.currentTimeMillis()) / 1000L
         val min = (diff / 60).toInt()
         val sec = (diff % 60).toInt()
-        val flagHolder = if (GameData.it == null) "Nobody" else GameData.it!!.displayName
-        val timeString = if (min > 0) min.toString() + "m " + sec + "s" else sec.toString() + "s"
-        if (e.player.uniqueId == GameData.it!!.uniqueId && e.player.world.getBlockAt(e.player.location).type == Material.NETHER_PORTAL) {
+        val timeString = "${if (min > 0) "${min}m " else ""}${sec}s"
+        if (GameData.it == null) {
+            player.sendActionBar("§aNobody has the flag! §f§l| §b$timeString")
+            return
+        }
+        val flagHolder = if (GameData.it == null) "Nobody" else GameData.it?.displayName
+        if (e.player.uniqueId == GameData.it?.uniqueId && e.player.world.getBlockAt(e.player.location).type == Material.NETHER_PORTAL) {
             GameData.backUpLoc = GameData.itLoc
             return
         }
-        if (GameData.gameRunning && e.player.uniqueId == GameData.it!!.uniqueId && !GameData.inNether) {
+        if (GameData.gameRunning && e.player.uniqueId == GameData.it?.uniqueId && !GameData.inNether) {
             GameData.itLoc = e.player.location
             for (p: Player in Bukkit.getOnlinePlayers()) {
                 var ar = "|"
@@ -52,7 +56,6 @@ object ItLocationManager : Listener {
             GameData.netherBackupLocs[e.player] = e.player.location
             return
         }
-        val player = e.player
         var arrow = "|"
         if (GameData.it != null && GameData.it !== player) {
             var itLoc: Location? = GameData.itLoc!!.clone()
