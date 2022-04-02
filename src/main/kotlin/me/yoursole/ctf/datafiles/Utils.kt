@@ -1,6 +1,6 @@
 package me.yoursole.ctf.datafiles
 
-import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.CompoundTag
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -90,18 +90,12 @@ object Utils {
         world.getBlockAt(clone().add(0.0, 1.0, 0.0)).type = Material.AIR
         return this
     }
+    
+    fun ItemStack.getCTFAttributes(): CompoundTag = ((this as CraftItemStack).handle ?: net.minecraft.world.item.ItemStack.EMPTY).getOrCreateTagElement("CTFAttributes")
 
-    //fun ItemStack.getCTFAttributes() = (this as CraftItemStack).handle.orCreateTag.getCompoundOrCreate("CTFAttributes")
+    fun ItemStack.getCTFId(): String = getCTFAttributes().getString("itemId")
 
-    fun ItemStack.getCTFAttributes() = ((this as CraftItemStack).handle ?: net.minecraft.world.item.ItemStack.b).u()
-        .getCompoundOrCreate("CTFAttributes")
-
-    fun ItemStack.getCTFId() = getCTFAttributes().l("itemId") //getString
-
-    fun ItemStack.setCTFId(id: String) = getCTFAttributes().a("itemId", id) //setString
-
-    fun NBTTagCompound.getCompoundOrCreate(key: String): NBTTagCompound =
-        this.x.getOrPut(key) { NBTTagCompound() } as NBTTagCompound
+    fun ItemStack.setCTFId(id: String) = getCTFAttributes().putString("itemId", id)
 
     fun Player.getArrowFor(loc: Location): Arrows {
         val a = loc.x - this.location.x

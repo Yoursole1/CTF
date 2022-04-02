@@ -1,10 +1,14 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.6.20-RC2"
+    kotlin("jvm") version "1.6.20"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.papermc.paperweight.userdev") version "1.3.5"
+    id("xyz.jpenilla.run-paper") version "1.0.6"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
 }
 
 repositories {
@@ -21,8 +25,7 @@ val shadowMe by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
-    implementation("io.papermc.paper:paper-server:1.18.2-R0.1-SNAPSHOT")
+    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     shadowMe("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -34,7 +37,27 @@ group = "me.yoursole"
 version = "1.0-SNAPSHOT"
 description = "CapturetheFlag"
 
+bukkit {
+    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
+    main = "me.yoursole.ctf.CTF"
+    apiVersion = "1.18"
+    authors = listOf("Yoursole", "My-Name-Is-Jeff")
+}
+
 tasks {
+
+    processResources {
+        filteringCharset = "UTF-8"
+    }
+
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+
+    assemble {
+        dependsOn(reobfJar)
+    }
+
     withType<JavaCompile> {
         options.encoding = "UTF-8"
     }

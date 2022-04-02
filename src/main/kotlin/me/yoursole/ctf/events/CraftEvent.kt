@@ -62,6 +62,6 @@ object CraftEvent : Listener {
 
     @EventHandler
     fun onEnchant(event: PrepareItemEnchantEvent) {
-        event.offers.forEach { it.cost = (it.cost * 0.75).roundToInt() }
+        event.offers?.filterNotNull()?.forEach { it.cost = (it.cost * 0.75).roundToInt() }
     }
 }
