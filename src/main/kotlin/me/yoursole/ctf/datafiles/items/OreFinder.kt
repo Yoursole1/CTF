@@ -141,7 +141,8 @@ object OreFinder : Listener {
     private fun unGlow(player: Player) {
         val shulks = this.spawnedShukers[player.uniqueId] ?: return
         shulks.removeAll {
-            it.remove()
+            //it.damage(1000.0)
+            it.health = 0.0
             true
         }
     }
