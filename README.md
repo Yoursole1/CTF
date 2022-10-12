@@ -19,3 +19,14 @@ The game starts with the plugin generating a new Overworld and Nether, that do n
 - ![image](https://user-images.githubusercontent.com/80355246/195406937-87a8cd80-e41d-46de-85d7-b70a37abaaaa.png)
 - ![image](https://user-images.githubusercontent.com/80355246/195407009-ba36ef00-aff0-4567-92ae-557cd6f210c3.png)
 - ![image](https://user-images.githubusercontent.com/80355246/195407060-deb3a8d4-ec80-4248-8a72-ddeffcf91435.png)
+
+- Note that there are other custom items, but I do not currently have screenshots for them
+**Special Features**
+
+- Hunters get dolphins grace when the flag holder is in a boat to avoid the flag holder running forever this way
+- Build limit at 120 blocks to stop towering
+- Tunnelers pickaxe only breaks 3 blocks for the flag holder to avoid hiding underground
+- Compass points to flag at all times, including when the flag holder has it
+- The flag holder glows
+- If the flag is in a different dimension than you, the compass will point to the nearest portal
+- If the flag holder dies without being killed, the flag drops randomly again like the start
